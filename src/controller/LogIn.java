@@ -1,11 +1,20 @@
 package controller;
 
+import DBConnection.JDBC;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class LogIn implements Initializable {
@@ -18,6 +27,15 @@ public class LogIn implements Initializable {
 
     }
 
-    public void onLogIn(ActionEvent actionEvent) {
+    public void onLogIn(ActionEvent actionEvent) throws IOException {
+
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Main_Page.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
+
+
 }
