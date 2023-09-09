@@ -45,4 +45,6 @@ public class Users {
             allUsers.add(createUser);
         }
     }
+
+    public static ObservableList<Users> getAllUsers(){return allUsers;}
 }
