@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Users;
@@ -22,6 +23,7 @@ public class LogIn implements Initializable {
     public TextField userNameTF;
     public TextField passwordTF;
     public Button logIn;
+    public DialogPane logInDialog;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -31,10 +33,12 @@ public class LogIn implements Initializable {
     public void onLogIn(ActionEvent actionEvent) throws IOException {
         String userName = userNameTF.getText();
         if(userName.isBlank()){
+            logInDialog.setContentText("Please Enter Username");
             return;
         }
         String password = passwordTF.getText();
         if(password.isBlank()){
+            logInDialog.setContentText("Please Enter Password");
             return;
         }
 
@@ -46,7 +50,10 @@ public class LogIn implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             }
-
+            else {
+                logInDialog.setContentText("Invalid Username and Password Combination");
+                return;
+            }
         }
 
 
