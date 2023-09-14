@@ -41,6 +41,11 @@ public class LogIn implements Initializable {
             logInDialog.setContentText("Please Enter Password");
             return;
         }
+        try {
+            Users.userQuery();}
+        catch (SQLException e){
+            System.out.println("Pizdec");
+        }
 
         for(Users user : Users.getAllUsers()){
             if(userName.equals(user.getUserName()) && password.equals(user.getPassword())){
@@ -49,6 +54,7 @@ public class LogIn implements Initializable {
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
+                System.out.println(userName);
             }
             else {
                 logInDialog.setContentText("Invalid Username and Password Combination");
