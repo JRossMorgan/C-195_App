@@ -12,7 +12,6 @@ public class Users {
 
     private String userName;
     private String password;
-    private static ObservableList<Users> allUsers = FXCollections.observableArrayList();
 
     public Users(String userName, String password){
         this.userName = userName;
@@ -34,17 +33,5 @@ public class Users {
     public void setPassword(String password) {
         this.password = password;
     }
-    public static void userQuery() throws SQLException {
-        String sql = "SELECT User_Name, Password FROM users";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while(rs.next()){
-            String userName = rs.getString("User_Name");
-            String password = rs.getString("Password");
-            Users createUser = new Users(userName, password);
-            allUsers.add(createUser);
-        }
-    }
 
-    public static ObservableList<Users> getAllUsers(){return allUsers;}
 }
