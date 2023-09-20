@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Users;
@@ -18,6 +19,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LogIn implements Initializable {
@@ -25,22 +27,46 @@ public class LogIn implements Initializable {
     public TextField passwordTF;
     public Button logIn;
     public DialogPane logInDialog;
+    public Label headLine;
+    public Label userName;
+    public Label password;
+    String country = Locale.getDefault().getCountry();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        logInDialog.setContentText("Your Location: ");
+        if(Locale.getDefault().getLanguage().equals("fr")){
+            logInDialog.setContentText("Votre Emplacment: " + country);
+            logIn.setText("Se Connecter");
+            headLine.setText("Se Conncter");
+            userName.setText("Nom d'utilisateur");
+            password.setText("Mot de passe");
+
+        }
+        else{
+            logInDialog.setContentText("Your Location: " + country);
+        }
 
     }
 
     public void onLogIn(ActionEvent actionEvent) throws IOException {
         String userName = userNameTF.getText();
         if(userName.isBlank()){
-            logInDialog.setContentText("Please Enter Username");
+            if(Locale.getDefault().getLanguage().equals("fr")){
+                logInDialog.setContentText("Entrez le nom d'utilisateur, si vous plait");
+            }
+            else{
+                logInDialog.setContentText("Please Enter Username");
+            }
             return;
         }
         String password = passwordTF.getText();
         if(password.isBlank()){
-            logInDialog.setContentText("Please Enter Password");
+            if(Locale.getDefault().getLanguage().equals("fr")){
+                logInDialog.setContentText("Entrez le mot de passe, si vous plait");
+            }
+            else{
+                logInDialog.setContentText("Please Enter Password");
+            }
             return;
         }
 
@@ -55,8 +81,12 @@ public class LogIn implements Initializable {
 
             }
             else {
-                logInDialog.setContentText("Invalid Username and Password Combination");
-                return;
+                if(Locale.getDefault().getLanguage().equals("fr")){
+                    logInDialog.setContentText("La combinaison des nom d'utilisateur et mot de passe est invalide");
+                }
+                else{
+                    logInDialog.setContentText("Invalid Username and Password Combination");
+                }
             }
         }
 
