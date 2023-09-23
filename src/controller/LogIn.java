@@ -14,11 +14,16 @@ import javafx.stage.Stage;
 import model.Users;
 import model.UsersDAO;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -69,10 +74,18 @@ public class LogIn implements Initializable {
             }
             return;
         }
+        String loginAtempt = "login_activity.txt", atempt;
+
+        FileWriter file = new FileWriter(loginAtempt, true);
+        PrintWriter loginReport = new PrintWriter(file);
+
 
         for(Users user : UsersDAO.getAllUsers()){
             System.out.println(user.getUserName() + " " + user.getPassword());
             if(userName.equals(user.getUserName()) && password.equals(user.getPassword())){
+                loginAtempt = userName + " " + LocalDateTime.ofInstant(Instant.now(), ZoneId.of("GMT")) + " " + "Attempt: Successful";
+                loginReport.println(loginAtempt);
+
                 Parent root = FXMLLoader.load(getClass().getResource("/view/Main_Page.fxml"));
                 Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
@@ -81,6 +94,8 @@ public class LogIn implements Initializable {
 
             }
             else {
+                loginAtempt = userName + " " + LocalDateTime.ofInstant(Instant.now(), ZoneId.of("GMT")) + " " + "Attempt: Failed";
+                loginReport.println(loginAtempt);
                 if(Locale.getDefault().getLanguage().equals("fr")){
                     logInDialog.setContentText("La combinaison des nom d'utilisateur et mot de passe est invalide");
                 }
@@ -88,6 +103,7 @@ public class LogIn implements Initializable {
                     logInDialog.setContentText("Invalid Username and Password Combination");
                 }
             }
+            loginReport.close();
         }
 
 

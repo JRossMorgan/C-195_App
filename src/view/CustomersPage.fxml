@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomersPageController">
+   <children>
+      <Label layoutX="12.0" layoutY="15.0" prefHeight="43.0" prefWidth="132.0" text="Customers" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <TableView fx:id="customersTable" layoutX="25.0" layoutY="83.0" prefHeight="200.0" prefWidth="544.0">
+        <columns>
+          <TableColumn fx:id="customerId" prefWidth="30.0" text="ID" />
+          <TableColumn fx:id="customerName" prefWidth="98.0" text="Name" />
+            <TableColumn fx:id="customerAddress" prefWidth="97.0" text="Address" />
+            <TableColumn fx:id="postalCode" prefWidth="73.0" text="Postal Code" />
+            <TableColumn fx:id="custPhone" prefWidth="68.0" text="Phone" />
+            <TableColumn fx:id="custDivision" prefWidth="94.0" text="Division" />
+            <TableColumn fx:id="custCountry" prefWidth="83.0" text="Country" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

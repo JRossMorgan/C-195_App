@@ -6,9 +6,14 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainPageController">
    <children>
-      <TextArea editable="false" layoutX="55.0" layoutY="119.0" prefHeight="50.0" prefWidth="255.0" text="CRM Master 2000" AnchorPane.bottomAnchor="409.0" AnchorPane.leftAnchor="55.0">
+      <TextArea editable="false" layoutX="29.0" layoutY="39.0" prefHeight="50.0" prefWidth="255.0" text="CRM Master 2000" AnchorPane.bottomAnchor="489.0" AnchorPane.leftAnchor="29.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></TextArea>
+      <Button fx:id="customers" layoutX="60.0" layoutY="152.0" mnemonicParsing="false" onAction="#goToCustomers" prefHeight="54.0" prefWidth="90.0" text="Customers">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
