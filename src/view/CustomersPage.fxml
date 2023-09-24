@@ -22,5 +22,9 @@
             <TableColumn fx:id="custCountry" prefWidth="83.0" text="Country" />
         </columns>
       </TableView>
+      <Button fx:id="modCustomer" layoutX="342.0" layoutY="300.0" mnemonicParsing="false" onAction="#onMod" text="Modify" />
+      <Button fx:id="deleteCustomer" layoutX="450.0" layoutY="300.0" mnemonicParsing="false" onAction="#onDelete" text="Delete" />
+      <Button fx:id="addCustomer" layoutX="245.0" layoutY="300.0" mnemonicParsing="false" onAction="#onAdd" text="Add" />
+      <DialogPane fx:id="custDialog" layoutX="25.0" layoutY="293.0" prefHeight="73.0" prefWidth="212.0" />
    </children>
 </AnchorPane>
