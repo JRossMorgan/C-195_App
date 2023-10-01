@@ -1,5 +1,8 @@
 package model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class Customers {
     private int customerId;
     private String name;
@@ -46,4 +49,11 @@ public class Customers {
     public String getCountry(){
         return country;
     }
+    /*ObservableList<Appointment> customerAppointments(){
+        ObservableList<Appointment> getCustomerAppointments = FXCollections.observableArrayList();
+        if(Customers.getCustomerId() == Appointment.getCustomerId()){
+
+        }
+        return getCustomerAppointments;
+    }*/
 }

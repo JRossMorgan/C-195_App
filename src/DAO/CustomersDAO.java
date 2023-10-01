@@ -1,8 +1,9 @@
-package model;
+package DAO;
 
 import DBConnection.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Customers;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,14 +37,14 @@ public class CustomersDAO {
         }
         return allCustomers;
     }
-    public static void insertCustomer(String custName, String address, String postalCode, String phone, LocalDateTime created, int divisionId){
+    public static void insertCustomer(String custName, String address, String postalCode, String phone, Timestamp timestamp, int divisionId){
         String sql = "insert into customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Division_ID) values (?, ?, ?, ?, ?, ?)";
         try{
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
             ps.setString(1, custName);
             ps.setString(2,address);
             ps.setString(3, postalCode);
-            ps.setString(4, postalCode);
+            ps.setString(4, phone);
             ps.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now(ZoneId.of("GMT"))));
             ps.setInt(6, divisionId);
             ps.executeUpdate();

@@ -1,8 +1,9 @@
-package model;
+package DAO;
 
 import DBConnection.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Contacts;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
