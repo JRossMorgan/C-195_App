@@ -30,8 +30,8 @@ public class AddCustomerController implements Initializable {
     public TextField addAddress;
     public TextField addPostal;
     public TextField addPhone;
-    public ComboBox addCountry;
-    public ComboBox addDivision;
+    public ComboBox <Country> addCountry;
+    public ComboBox <Divisions> addDivision;
     public Button addSave;
     public Button addCancel;
     public DialogPane addDialog;
@@ -61,14 +61,6 @@ public class AddCustomerController implements Initializable {
             addDialog.setContentText("Please Enter A Phone Number");
             return;
         }
-        /*String country;
-        Country SP = (Country) addCountry.getSelectionModel().getSelectedItem();
-        if(SP == null){
-            addDialog.setContentText("Please Select a Country");
-        }
-        else {
-            country = SP.getName();
-        }*/
         int division = 0;
 
         Divisions PQ = (Divisions) addDivision.getSelectionModel().getSelectedItem();

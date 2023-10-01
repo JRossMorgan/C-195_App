@@ -72,4 +72,15 @@ public class CustomersDAO {
             throwables.printStackTrace();
         }
     }
+    public static void deleteCustomer(int custId){
+        String sql = "DELETE FROM customers WHERE Customer_ID = ?";
+        try{
+            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+            ps.setInt(1, custId);
+            ps.executeQuery();
+        }
+        catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+    }
 }

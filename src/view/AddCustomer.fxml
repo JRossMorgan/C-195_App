@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomerController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomerController">
    <children>
       <TextField fx:id="addID" editable="false" layoutX="110.0" layoutY="123.0" prefHeight="25.0" prefWidth="40.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="17.0" prefHeight="46.0" prefWidth="161.0" text="Add Customer" textAlignment="CENTER">

@@ -1,21 +1,21 @@
 package controller;
 
+import DAO.AppointmentDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointment;
 import model.Customers;
 import DAO.CustomersDAO;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CustomersPageController implements Initializable {
@@ -45,10 +45,41 @@ public class CustomersPageController implements Initializable {
         custCountry.setCellValueFactory(new PropertyValueFactory<>("country"));
     }
 
-    public void onMod(ActionEvent actionEvent) {
+    public void onMod(ActionEvent actionEvent) throws IOException{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("veiw/UpdateCustomer.fxml"));
+        loader.load();
+
+        UpdateCustomerController UpdatingCustomer = loader.getController();
+        UpdatingCustomer.updateCustomer((Customers)customersTable.getSelectionModel().getSelectedItem());
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Parent scene = loader.getRoot();
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     public void onDelete(ActionEvent actionEvent) {
+        Customers SP = (Customers) customersTable.getSelectionModel().getSelectedItem();
+        if(SP == null){
+            return;
+        }
+        else{
+            for(Appointment appointment : AppointmentDAO.getAppointments()){
+                if(appointment.getCustomerId() == SP.getCustomerId()){
+                    custDialog.setContentText("You Cannot Delete a Customer With Scheduled Appointments");
+                }
+                else{
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("DELETE");
+                    alert.setContentText("Are you sure you want to delete this customer?");
+                    Optional<ButtonType> pressed = alert.showAndWait();
+                    if(pressed.isPresent() && pressed.get() == ButtonType.OK){
+                        CustomersDAO.deleteCustomer(SP.getCustomerId());
+                        custDialog.setContentText("Customer Deleted");
+                    }
+                }
+            }
+        }
     }
 
     public void onAdd(ActionEvent actionEvent) throws IOException {
