@@ -12,18 +12,18 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class AppointmentDAO {
-    public static ObservableList<Appointment> getAppointments(){
+    public static ObservableList<Appointment> getAppointments() {
         ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
-        String sql ="SELECT Appointment_ID, Title, Description, Location, Type, Contact_Name, Start, End, Customer_ID, User_ID FROM appointments, contacts WHERE appointments.Contact_ID = contacts.Contact_ID";
-        try{
+        String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Contact_Name, Start, End, Customer_ID, User_ID FROM appointments, contacts WHERE appointments.Contact_ID = contacts.Contact_ID";
+        try {
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int appointmentId = rs.getInt("Appointment_ID");
                 String title = rs.getString("Title");
                 String description = rs.getString("Description");
                 String location = rs.getString("Location");
-                String type =rs.getString("Type");
+                String type = rs.getString("Type");
                 String contact = rs.getString("Contact_Name");
                 Timestamp start = rs.getTimestamp("Start");
                 Timestamp end = rs.getTimestamp("End");
@@ -33,10 +33,10 @@ public class AppointmentDAO {
                 allAppointments.add(createAppointment);
 
             }
-        }
-        catch (SQLException throwables){
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return allAppointments;
     }
 }
+

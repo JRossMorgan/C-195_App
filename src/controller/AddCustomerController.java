@@ -66,6 +66,7 @@ public class AddCustomerController implements Initializable {
         Divisions PQ = (Divisions) addDivision.getSelectionModel().getSelectedItem();
         if(PQ == null){
             addDialog.setContentText("Please Select a Division");
+            return;
         }
         else{
             division = PQ.getDivisionId();

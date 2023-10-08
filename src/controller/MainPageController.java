@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 
 public class MainPageController implements Initializable {
     public Button customers;
+    public Button appointments;
 
     public void goToCustomers(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/CustomersPage.fxml"));
@@ -26,5 +27,8 @@ public class MainPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    public void onApp(ActionEvent actionEvent) {
     }
 }

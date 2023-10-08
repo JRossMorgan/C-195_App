@@ -55,14 +55,14 @@ public class CustomersDAO {
         }
     }
 
-    public static void updateCustomer(int customerId, String custName, String address, String postalCode, String phone, LocalDateTime created, int divisionId){
+    public static void updateCustomer(int customerId, String custName, String address, String postalCode, String phone, Timestamp created, int divisionId){
         String sql ="update customers set Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Create_Date = ?, Division_ID = ? where Customer_ID = ?";
         try{
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
             ps.setString(1, custName);
             ps.setString(2,address);
             ps.setString(3, postalCode);
-            ps.setString(4, postalCode);
+            ps.setString(4, phone);
             ps.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now(ZoneId.of("GMT"))));
             ps.setInt(6, divisionId);
             ps.setInt(7, customerId);
