@@ -56,7 +56,7 @@ public class CustomersDAO {
     }
 
     public static void updateCustomer(int customerId, String custName, String address, String postalCode, String phone, Timestamp created, int divisionId){
-        String sql ="update customers set Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Create_Date = ?, Division_ID = ? where Customer_ID = ?";
+        String sql ="update customers set Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Update = ?, Division_ID = ? where Customer_ID = ?";
         try{
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
             ps.setString(1, custName);
