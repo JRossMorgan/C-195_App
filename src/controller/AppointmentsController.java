@@ -50,6 +50,12 @@ public class AppointmentsController implements Initializable {
 
     public ObservableList<Appointment> monthlyAppointment = FXCollections.observableArrayList();
     public ObservableList<Appointment> weeklyAppointment = FXCollections.observableArrayList();
+    public Button addMonth;
+    public Button updateMonth;
+    public Button deleteMonth;
+    public Button addWeek;
+    public Button updateWeek;
+    public Button deleteWeek;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -103,10 +109,30 @@ public class AppointmentsController implements Initializable {
         }
         else{
             for(Appointment appointment : AppointmentDAO.getAppointments()){
-                if(appointment.getStartTime().equals(SP)){
-
+                int startWeek = SP.minusDays(3).getDayOfMonth();
+                int endWeek = SP.plusDays(3).getDayOfMonth();
+                if(appointment.getStartTime().getDayOfMonth() >= startWeek && appointment.getStartTime().getDayOfMonth() <= endWeek){
+                    weeklyAppointment.add(appointment);
                 }
             }
         }
+    }
+
+    public void onAddMonth(ActionEvent actionEvent) {
+    }
+
+    public void onUpdateMonth(ActionEvent actionEvent) {
+    }
+
+    public void onDeleteMonth(ActionEvent actionEvent) {
+    }
+
+    public void onAddWeek(ActionEvent actionEvent) {
+    }
+
+    public void onUpdateWeek(ActionEvent actionEvent) {
+    }
+
+    public void onDeleteWeek(ActionEvent actionEvent) {
     }
 }

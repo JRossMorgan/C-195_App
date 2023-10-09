@@ -60,5 +60,17 @@ public class AppointmentDAO {
             throwables.printStackTrace();
         }
     }
+
+    public void deleteAppointment(int id){
+        String sql = "delete from Appointments where Appointment_ID = ?";
+        try{
+            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeQuery();
+        }
+        catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+    }
 }
 

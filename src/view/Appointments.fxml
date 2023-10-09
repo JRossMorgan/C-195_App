@@ -17,21 +17,24 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="appMonth" layoutY="59.0" prefHeight="197.0" prefWidth="508.0">
+                        <TableView fx:id="appMonth" layoutY="59.0" prefHeight="197.0" prefWidth="557.0">
                           <columns>
                             <TableColumn fx:id="idByMonth" prefWidth="37.0" text="ID" />
                             <TableColumn fx:id="titleByMonth" prefWidth="49.0" text="Title" />
                               <TableColumn fx:id="descByMonth" prefWidth="53.0" text="Decription" />
                               <TableColumn fx:id="locByMonth" prefWidth="46.0" text="Location" />
                               <TableColumn fx:id="contactByMonth" prefWidth="39.0" text="Contact" />
-                              <TableColumn fx:id="typeByMonth" prefWidth="39.0" text="Type" />
-                              <TableColumn fx:id="startByMonth" prefWidth="49.0" text="Start" />
-                              <TableColumn fx:id="endByMonth" prefWidth="75.0" text="End" />
-                              <TableColumn fx:id="customerByMonth" prefWidth="53.0" text="Customer ID" />
-                              <TableColumn fx:id="userByMonth" prefWidth="67.0" text="User Id" />
+                              <TableColumn fx:id="typeByMonth" prefWidth="47.0" text="Type" />
+                              <TableColumn fx:id="startByMonth" prefWidth="53.0" text="Start" />
+                              <TableColumn fx:id="endByMonth" prefWidth="63.0" text="End" />
+                              <TableColumn fx:id="customerByMonth" prefWidth="93.0" text="Customer ID" />
+                              <TableColumn fx:id="userByMonth" prefWidth="76.0" text="User Id" />
                           </columns>
                         </TableView>
                         <ComboBox fx:id="monthBox" layoutX="141.0" layoutY="23.0" onAction="#onChooseMonth" prefWidth="150.0" promptText="Choose Month" />
+                        <Button fx:id="addMonth" layoutX="130.0" layoutY="268.0" mnemonicParsing="false" onAction="#onAddMonth" text="Add" />
+                        <Button fx:id="updateMonth" layoutX="227.0" layoutY="268.0" mnemonicParsing="false" onAction="#onUpdateMonth" text="Update" />
+                        <Button fx:id="deleteMonth" layoutX="321.0" layoutY="268.0" mnemonicParsing="false" onAction="#onDeleteMonth" text="Delete" />
                      </children></AnchorPane>
 
             </content>
@@ -55,6 +58,9 @@
                           </columns>
                         </TableView>
                         <DatePicker fx:id="chooseWeek" layoutX="138.0" layoutY="21.0" onAction="#onChooseWeek" promptText="Choose a Week" />
+                        <Button fx:id="addWeek" layoutX="130.0" layoutY="268.0" mnemonicParsing="false" onAction="#onAddWeek" text="Add" />
+                        <Button fx:id="updateWeek" layoutX="227.0" layoutY="268.0" mnemonicParsing="false" onAction="#onUpdateWeek" text="Update" />
+                        <Button fx:id="deleteWeek" layoutX="321.0" layoutY="268.0" mnemonicParsing="false" onAction="#onDeleteWeek" text="Delete" />
                      </children>
                   </AnchorPane>
             </content>
