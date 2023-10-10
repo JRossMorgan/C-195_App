@@ -67,5 +67,6 @@
           </Tab>
         </tabs>
       </TabPane>
+      <DialogPane fx:id="appDialog" layoutX="170.0" layoutY="27.0" />
    </children>
 </AnchorPane>

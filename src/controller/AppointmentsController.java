@@ -17,6 +17,7 @@ import java.time.MonthDay;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AppointmentsController implements Initializable {
@@ -56,6 +57,7 @@ public class AppointmentsController implements Initializable {
     public Button addWeek;
     public Button updateWeek;
     public Button deleteWeek;
+    public DialogPane appDialog;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -125,6 +127,20 @@ public class AppointmentsController implements Initializable {
     }
 
     public void onDeleteMonth(ActionEvent actionEvent) {
+        Appointment SP = (Appointment) appMonth.getSelectionModel().getSelectedItem();
+        if(SP == null){
+            return;
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Appointment");
+            alert.setContentText("Are you sure you want to delete appointment?");
+            Optional<ButtonType> pressed = alert.showAndWait();
+            if(pressed.isPresent() && pressed.get() == ButtonType.OK){
+                AppointmentDAO.deleteAppointment(SP.getAppointmentId());
+                appDialog.setContentText("Appointment " + SP.getAppointmentId() + " " + SP.getType() + " has been canceled.");
+            }
+        }
     }
 
     public void onAddWeek(ActionEvent actionEvent) {
@@ -134,5 +150,19 @@ public class AppointmentsController implements Initializable {
     }
 
     public void onDeleteWeek(ActionEvent actionEvent) {
+        Appointment SP = (Appointment) appWeek.getSelectionModel().getSelectedItem();
+        if(SP == null){
+            return;
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Appointment");
+            alert.setContentText("Are you sure you want to delete appointment?");
+            Optional<ButtonType> pressed = alert.showAndWait();
+            if(pressed.isPresent() && pressed.get() == ButtonType.OK){
+                AppointmentDAO.deleteAppointment(SP.getAppointmentId());
+                appDialog.setContentText("Appointment " + SP.getAppointmentId() + " " + SP.getType() + " has been canceled.");
+            }
+        }
     }
 }

@@ -61,7 +61,7 @@ public class AppointmentDAO {
         }
     }
 
-    public void deleteAppointment(int id){
+    public static void deleteAppointment(int id){
         String sql = "delete from Appointments where Appointment_ID = ?";
         try{
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
