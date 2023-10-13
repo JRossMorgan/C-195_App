@@ -39,6 +39,9 @@ public class AppointmentDAO {
         }
         return allAppointments;
     }
+    public static void insertAppointment(){
+
+    }
     public static void updateAppointment(int id, String title, String description, String location, String type, String contact, Timestamp startTime, Timestamp endTime, int customerId, int userId, int contactId){
         String sql = "update appointments, contacts set Title = ?, Description = ?, Location = ?, Type = ?, contact = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ? where Appointment_ID = ? and Contact_ID = ? ";
         try{

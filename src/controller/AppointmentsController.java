@@ -4,12 +4,17 @@ import DAO.AppointmentDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import model.Appointment;
 import model.Months;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -120,7 +125,12 @@ public class AppointmentsController implements Initializable {
         }
     }
 
-    public void onAddMonth(ActionEvent actionEvent) {
+    public void onAddMonth(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/AddAppointment.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void onUpdateMonth(ActionEvent actionEvent) {
@@ -143,7 +153,12 @@ public class AppointmentsController implements Initializable {
         }
     }
 
-    public void onAddWeek(ActionEvent actionEvent) {
+    public void onAddWeek(ActionEvent actionEvent) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/view/AddAppointment.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void onUpdateWeek(ActionEvent actionEvent) {

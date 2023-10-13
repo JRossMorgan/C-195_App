@@ -12,14 +12,15 @@ import java.sql.SQLException;
 public class ContactsDAO {
     public static ObservableList<Contacts> getAllContacts(){
         ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
-        String sql = "SELECT Contact_Name, Email FROM contacts";
+        String sql = "SELECT Contact_ID, Contact_Name, Email FROM contacts";
         try {
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                int contactId =rs.getInt("Contact_ID");
                 String contactName = rs.getString("Contact_Name");
                 String email = rs.getString("Email");
-                Contacts createContacts = new Contacts(contactName, email);
+                Contacts createContacts = new Contacts(contactId, contactName, email);
                 allContacts.add(createContacts);
             }
         }
