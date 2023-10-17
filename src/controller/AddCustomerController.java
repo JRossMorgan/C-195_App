@@ -40,7 +40,7 @@ public class AddCustomerController implements Initializable {
 
 
 
-    public void onAdd(ActionEvent actionEvent) {
+    public void onAdd(ActionEvent actionEvent) throws IOException{
         String name = addName.getText();
         if(name.isBlank()){
             addDialog.setContentText("Please Enter A Name");
@@ -72,10 +72,16 @@ public class AddCustomerController implements Initializable {
             division = PQ.getDivisionId();
         }
         CustomersDAO.insertCustomer(name, address, postal, phone, Timestamp.valueOf(LocalDateTime.now(ZoneId.of("GMT"))), division);
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/CustomersPage.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void onAddCancel(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/Main_Page.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/CustomersPage.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

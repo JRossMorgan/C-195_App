@@ -41,6 +41,7 @@ public class UpdateCustomerController implements Initializable {
     public ObservableList<Divisions> updatableDivisions = FXCollections.observableArrayList();
 
     public void onSelect(ActionEvent actionEvent) {
+        updatableDivisions.clear();
         Country SP = (Country) updateCountry.getSelectionModel().getSelectedItem();
         if(SP == null){
             return;
@@ -107,6 +108,7 @@ public class UpdateCustomerController implements Initializable {
                 updateCountry.setValue(customerCountry);
             }
         }
+
         for(Divisions customerDivision : DivisionsDAO.getDivisions()){
             if(customerDivision.name.equalsIgnoreCase(customerToUpdate.getDivision())){
                 updateDivision.setValue(customerDivision);
@@ -116,6 +118,7 @@ public class UpdateCustomerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         updateCountry.setItems(CountryDAO.getCountries());
+
         updateDivision.setItems(updatableDivisions);
     }
 }

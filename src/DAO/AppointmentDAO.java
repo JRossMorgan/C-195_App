@@ -39,7 +39,25 @@ public class AppointmentDAO {
         }
         return allAppointments;
     }
-    public static void insertAppointment(){
+    public static void insertAppointment(String title, String description, String location, String type, Timestamp start, Timestamp end, int customerId, int userId, int contactId){
+        String sql = "insert into appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try{
+            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, description);
+            ps.setString(3, location);
+            ps.setString(4, type);
+            ps.setTimestamp(5, start);
+            ps.setTimestamp(6, end);
+            ps.setInt(7, customerId);
+            ps.setInt(8, userId);
+            ps.setInt(9, contactId);
+            ps.executeUpdate();
+
+        }
+        catch(SQLException throwables){
+            throwables.printStackTrace();
+        }
 
     }
     public static void updateAppointment(int id, String title, String description, String location, String type, String contact, Timestamp startTime, Timestamp endTime, int customerId, int userId, int contactId){

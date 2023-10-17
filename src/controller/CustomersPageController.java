@@ -31,6 +31,7 @@ public class CustomersPageController implements Initializable {
     public Button deleteCustomer;
     public Button addCustomer;
     public DialogPane custDialog;
+    public Button home;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,7 +48,7 @@ public class CustomersPageController implements Initializable {
 
     public void onMod(ActionEvent actionEvent) throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("veiw/UpdateCustomer.fxml"));
+        loader.setLocation(getClass().getResource("/view/UpdateCustomer.fxml"));
         loader.load();
 
         UpdateCustomerController UpdatingCustomer = loader.getController();
@@ -84,6 +85,14 @@ public class CustomersPageController implements Initializable {
 
     public void onAdd(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/AddCustomer.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void onHome(ActionEvent actionEvent) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Main_Page.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

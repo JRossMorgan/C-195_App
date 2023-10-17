@@ -12,6 +12,7 @@ import model.Contacts;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
@@ -33,6 +34,13 @@ public class AddAppointmentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addContact.setItems(ContactsDAO.getAllContacts());
+        LocalTime s = LocalTime.of(8, 0);
+        LocalTime e = LocalTime.of(22, 0);
+        while(s.isBefore(e.plusSeconds(1))){
+            addStart.getItems().add(s);
+            s = s.plusMinutes(30);
+        }
+        
 
     }
 
@@ -74,6 +82,24 @@ public class AddAppointmentController implements Initializable {
             addAppDialog.setContentText("Please Enter a User ID Number");
             return;
         }
+
+        String contact;
+        Contacts PQ = (Contacts) addContact.getSelectionModel().getSelectedItem();
+        if(PQ == null){
+            addAppDialog.setContentText("Please Select a COntact");
+            return;
+        }
+        else{
+            contact = PQ.getContactName();
+        }
+
+        LocalDate appDate = addDate.getValue();
+        if(appDate == null){
+            addAppDialog.setContentText("Please Choose a Date");
+            return;
+        }
+
+
 
     }
 

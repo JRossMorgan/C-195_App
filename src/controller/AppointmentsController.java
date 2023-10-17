@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.MonthDay;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalField;
@@ -51,11 +52,12 @@ public class AppointmentsController implements Initializable {
     public TableColumn <Appointment, Timestamp> endByWeek;
     public TableColumn <Appointment, Integer> customerByWeek;
     public TableColumn <Appointment, Integer> userByWeek;
-    public ComboBox <Months> monthBox;
+    public ComboBox <Month> monthBox;
     public DatePicker chooseWeek;
 
     public ObservableList<Appointment> monthlyAppointment = FXCollections.observableArrayList();
     public ObservableList<Appointment> weeklyAppointment = FXCollections.observableArrayList();
+    public ObservableList <Month> monthList = FXCollections.observableArrayList();
     public Button addMonth;
     public Button updateMonth;
     public Button deleteMonth;
@@ -66,8 +68,9 @@ public class AppointmentsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        for(Months month : Months.values()){
-            monthBox.setValue(month);
+        for(Month month : Month.values()){
+            monthList.add(month);
+            monthBox.setItems(monthList);
         }
         appMonth.setItems(monthlyAppointment);
         idByMonth.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
@@ -96,13 +99,13 @@ public class AppointmentsController implements Initializable {
     }
 
     public void onChooseMonth(ActionEvent actionEvent) {
-        Months SP = monthBox.getSelectionModel().getSelectedItem();
+        Month SP = monthBox.getSelectionModel().getSelectedItem();
         if(SP == null){
             return;
         }
         else{
             for(Appointment appointment : AppointmentDAO.getAppointments()){
-                if(appointment.getStartTime().getMonth().equals(SP)){
+                if(appointment.getStartTime().getMonth() ==SP){
                     monthlyAppointment.add(appointment);
                 }
             }
@@ -133,7 +136,12 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
-    public void onUpdateMonth(ActionEvent actionEvent) {
+    public void onUpdateMonth(ActionEvent actionEvent) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/view/UpdateAppointment.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void onDeleteMonth(ActionEvent actionEvent) {
@@ -161,7 +169,12 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
-    public void onUpdateWeek(ActionEvent actionEvent) {
+    public void onUpdateWeek(ActionEvent actionEvent) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/view/UpdateAppointment.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void onDeleteWeek(ActionEvent actionEvent) {
