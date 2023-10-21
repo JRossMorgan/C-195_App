@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class AppointmentDAO {
     public static ObservableList<Appointment> getAppointments() {
         ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
-        String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Contact_Name, Start, End, Customer_ID, User_ID, Contact_ID FROM appointments, contacts WHERE appointments.Contact_ID = contacts.Contact_ID";
+        String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Contact_Name, Start, End, Customer_ID, User_ID, appointments.Contact_ID FROM appointments, contacts WHERE appointments.Contact_ID = contacts.Contact_ID";
         try {
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -87,7 +87,7 @@ public class AppointmentDAO {
         try{
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
             ps.setInt(1, id);
-            ps.executeQuery();
+            ps.executeUpdate();
         }
         catch (SQLException throwables){
             throwables.printStackTrace();

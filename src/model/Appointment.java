@@ -58,13 +58,9 @@ public class Appointment {
         return startTime;
     }
 
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
+    public LocalDateTime getEndTime() {return endTime;}
 
-    public int getCustomerId() {
-        return customerId;
-    }
+    public int getCustomerId() {return customerId; }
 
     public int getUserId() {
         return userId;

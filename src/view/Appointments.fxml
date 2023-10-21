@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentsController">
+<AnchorPane prefHeight="667.0" prefWidth="814.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentsController">
    <children>
       <Label alignment="CENTER" layoutX="46.0" layoutY="36.0" prefHeight="44.0" prefWidth="110.0" text="Appointments">
          <font>
@@ -68,5 +68,20 @@
         </tabs>
       </TabPane>
       <DialogPane fx:id="appDialog" layoutX="170.0" layoutY="27.0" />
+      <TableView fx:id="testTable" layoutX="23.0" layoutY="417.0" prefHeight="200.0" prefWidth="565.0">
+        <columns>
+            <TableColumn fx:id="testId" prefWidth="44.0" text="ID" />
+            <TableColumn fx:id="testTitle" prefWidth="33.0" text="Title" />
+            <TableColumn fx:id="testDescription" prefWidth="72.0" text="Description" />
+            <TableColumn fx:id="testLocation" prefWidth="63.0" text="Location" />
+            <TableColumn fx:id="testContact" prefWidth="37.0" text="Contact" />
+            <TableColumn fx:id="testType" prefWidth="50.0" text="Type" />
+            <TableColumn fx:id="testStart" prefWidth="71.0" text="Start" />
+            <TableColumn fx:id="testEnd" prefWidth="50.0" text="End" />
+            <TableColumn fx:id="testCustomer" prefWidth="88.0" text="Customer Id" />
+            <TableColumn fx:id="testUser" prefWidth="48.0" text="User Id" />
+        </columns>
+      </TableView>
+      <Button fx:id="appHome" layoutX="263.0" layoutY="628.0" mnemonicParsing="false" onAction="#onHome" text="Home" />
    </children>
 </AnchorPane>

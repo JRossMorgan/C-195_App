@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.MonthDay;
 import java.time.temporal.ChronoField;
@@ -57,6 +58,7 @@ public class AppointmentsController implements Initializable {
 
     public ObservableList<Appointment> monthlyAppointment = FXCollections.observableArrayList();
     public ObservableList<Appointment> weeklyAppointment = FXCollections.observableArrayList();
+    public ObservableList <Appointment> testAppointment = FXCollections.observableArrayList();
     public ObservableList <Month> monthList = FXCollections.observableArrayList();
     public Button addMonth;
     public Button updateMonth;
@@ -65,6 +67,18 @@ public class AppointmentsController implements Initializable {
     public Button updateWeek;
     public Button deleteWeek;
     public DialogPane appDialog;
+    public TableView <Appointment> testTable;
+    public TableColumn <Appointment, Integer> testId;
+    public TableColumn <Appointment, String> testTitle;
+    public TableColumn <Appointment, String> testDescription;
+    public TableColumn <Appointment, String>testLocation;
+    public TableColumn <Appointment, String> testContact;
+    public TableColumn <Appointment, String> testType;
+    public TableColumn <Appointment, LocalDateTime> testStart;
+    public TableColumn <Appointment, LocalDateTime> testEnd;
+    public TableColumn <Appointment, Integer> testCustomer;
+    public TableColumn <Appointment, Integer> testUser;
+    public Button appHome;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -79,8 +93,8 @@ public class AppointmentsController implements Initializable {
         locByMonth.setCellValueFactory(new PropertyValueFactory<>("location"));
         contactByMonth.setCellValueFactory(new PropertyValueFactory<>("contact"));
         typeByMonth.setCellValueFactory(new PropertyValueFactory<>("type"));
-        startByMonth.setCellValueFactory(new PropertyValueFactory<>("start"));
-        endByMonth.setCellValueFactory(new PropertyValueFactory<>("end"));
+        startByMonth.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        endByMonth.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         customerByMonth.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         userByMonth.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
@@ -91,10 +105,26 @@ public class AppointmentsController implements Initializable {
         locByWeek.setCellValueFactory(new PropertyValueFactory<>("location"));
         contactByWeek.setCellValueFactory(new PropertyValueFactory<>("contact"));
         typeByWeek.setCellValueFactory(new PropertyValueFactory<>("type"));
-        startByWeek.setCellValueFactory(new PropertyValueFactory<>("start"));
-        endByWeek.setCellValueFactory(new PropertyValueFactory<>("end"));
+        startByWeek.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        endByWeek.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         customerByWeek.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         userByWeek.setCellValueFactory(new PropertyValueFactory<>("userId"));
+
+        for(Appointment appointment : AppointmentDAO.getAppointments()){
+            testAppointment.add(appointment);
+        }
+
+        testTable.setItems(testAppointment);
+        testId.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        testTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        testDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        testLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
+        testContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
+        testType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        testStart.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        testEnd.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        testCustomer.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        testUser.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
     }
 
@@ -157,6 +187,7 @@ public class AppointmentsController implements Initializable {
             if(pressed.isPresent() && pressed.get() == ButtonType.OK){
                 AppointmentDAO.deleteAppointment(SP.getAppointmentId());
                 appDialog.setContentText("Appointment " + SP.getAppointmentId() + " " + SP.getType() + " has been canceled.");
+                return;
             }
         }
     }
@@ -190,7 +221,16 @@ public class AppointmentsController implements Initializable {
             if(pressed.isPresent() && pressed.get() == ButtonType.OK){
                 AppointmentDAO.deleteAppointment(SP.getAppointmentId());
                 appDialog.setContentText("Appointment " + SP.getAppointmentId() + " " + SP.getType() + " has been canceled.");
+                return;
             }
         }
+    }
+
+    public void onHome(ActionEvent actionEvent) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Main_Page.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

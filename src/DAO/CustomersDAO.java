@@ -77,7 +77,7 @@ public class CustomersDAO {
         try{
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
             ps.setInt(1, custId);
-            ps.executeQuery();
+            ps.executeUpdate();
         }
         catch (SQLException throwables){
             throwables.printStackTrace();

@@ -55,7 +55,7 @@ public class UpdateCustomerController implements Initializable {
         }
     }
 
-    public void onUpdate(ActionEvent actionEvent) {
+    public void onUpdate(ActionEvent actionEvent) throws IOException{
         int id = Integer.parseInt(updateID.getText());
         String name = updateName.getText();
         if(name.isBlank()){
@@ -87,6 +87,12 @@ public class UpdateCustomerController implements Initializable {
             division = PQ.getDivisionId();
         }
         CustomersDAO.updateCustomer(id, name, adress, postal, phone, Timestamp.valueOf(LocalDateTime.now(ZoneId.of("GMT"))), division );
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/CustomersPage.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
     }
 

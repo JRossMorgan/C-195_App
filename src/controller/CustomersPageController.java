@@ -68,6 +68,7 @@ public class CustomersPageController implements Initializable {
             for(Appointment appointment : AppointmentDAO.getAppointments()){
                 if(appointment.getCustomerId() == SP.getCustomerId()){
                     custDialog.setContentText("You Cannot Delete a Customer With Scheduled Appointments");
+                    return;
                 }
                 else{
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -76,7 +77,9 @@ public class CustomersPageController implements Initializable {
                     Optional<ButtonType> pressed = alert.showAndWait();
                     if(pressed.isPresent() && pressed.get() == ButtonType.OK){
                         CustomersDAO.deleteCustomer(SP.getCustomerId());
+                        customersTable.refresh();
                         custDialog.setContentText("Customer Deleted");
+                        return;
                     }
                 }
             }
