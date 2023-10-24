@@ -15,8 +15,6 @@
       <TextField fx:id="addDescription" layoutX="90.0" layoutY="186.0" />
       <TextField fx:id="addLocation" layoutX="90.0" layoutY="242.0" />
       <TextField fx:id="addType" layoutX="90.0" layoutY="300.0" />
-      <TextField fx:id="addCustomer" layoutX="90.0" layoutY="360.0" />
-      <TextField fx:id="addUser" layoutX="90.0" layoutY="419.0" />
       <Label layoutX="29.0" layoutY="134.0" text="Title" />
       <Label layoutX="10.0" layoutY="190.0" text="Description" />
       <Label layoutX="18.0" layoutY="246.0" text="Location" />
@@ -33,6 +31,8 @@
       <Label layoutX="315.0" layoutY="304.0" text="End Time" />
       <Button fx:id="addSave" layoutX="214.0" layoutY="497.0" mnemonicParsing="false" onAction="#onAddSave" text="Save" />
       <Button fx:id="addCancel" layoutX="328.0" layoutY="497.0" mnemonicParsing="false" onAction="#onAddCancel" text="Cancel" />
-      <DialogPane fx:id="addAppDialog" layoutX="235.0" layoutY="35.0" />
+      <DialogPane fx:id="addAppDialog" layoutX="307.0" layoutY="359.0" prefHeight="107.0" prefWidth="360.0" />
+      <ComboBox fx:id="addCustomer" layoutX="99.0" layoutY="360.0" prefWidth="150.0" />
+      <ComboBox fx:id="addUser" layoutX="99.0" layoutY="419.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

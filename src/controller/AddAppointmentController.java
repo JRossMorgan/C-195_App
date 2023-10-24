@@ -2,6 +2,8 @@ package controller;
 
 import DAO.AppointmentDAO;
 import DAO.ContactsDAO;
+import DAO.CustomersDAO;
+import DAO.UsersDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +13,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Appointment;
 import model.Contacts;
+import model.Customers;
+import model.Users;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,8 +27,6 @@ public class AddAppointmentController implements Initializable {
     public TextField addDescription;
     public TextField addLocation;
     public TextField addType;
-    public TextField addCustomer;
-    public TextField addUser;
     public ComboBox <Contacts> addContact;
     public ComboBox <LocalTime> addStart;
     public ComboBox <LocalTime> addEnd;
@@ -32,15 +34,19 @@ public class AddAppointmentController implements Initializable {
     public Button addSave;
     public Button addCancel;
     public DialogPane addAppDialog;
+    public ComboBox <Customers> addCustomer;
+    public ComboBox <Users> addUser;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        addContact.setItems(ContactsDAO.getAllContacts());
+       /*addContact.setItems(ContactsDAO.getAllContacts());
+        addCustomer.setItems(CustomersDAO.getAllCustomers());
+        addUser.setItems(UsersDAO.getAllUsers());
 
-        LocalTime s = LocalTime.of(0, 0);
-        LocalTime e = LocalTime.of(23, 0);
+        ZonedDateTime s = ZonedDateTime.of(addDate.getValue(), LocalTime.parse("8"), ZoneId.of("EST"));
+        ZonedDateTime e = ZonedDateTime.of(addDate.getValue(), LocalTime.parse("22"), ZoneId.of("EST"));
         while(s.isBefore(e.plusSeconds(1))){
-            addStart.getItems().add(s);
+            addStart.getItems().add(s.toLocalTime());
             s = s.plusMinutes(30);
         }
         LocalTime q = LocalTime.of(0, 30);
@@ -48,7 +54,7 @@ public class AddAppointmentController implements Initializable {
         while(q.isBefore(z.plusSeconds(1))){
             addEnd.getItems().add(q);
             q = q.plusMinutes(30);
-        }
+        }*/
         
 
     }
@@ -76,21 +82,23 @@ public class AddAppointmentController implements Initializable {
         }
 
         int customerID = 0;
-        try{
-            customerID = Integer.parseInt(addCustomer.getText());
-        }
-        catch (NumberFormatException e){
-            addAppDialog.setContentText("Please Enter a Customer ID Number");
+        Customers CU = (Customers) addCustomer.getSelectionModel().getSelectedItem();
+        if(CU == null){
+            addAppDialog.setContentText("Please Select a Customer");
             return;
+        }
+        else{
+            customerID = CU.getCustomerId();
         }
 
         int userId = 0;
-        try{
-            userId = Integer.parseInt(addUser.getText());
-        }
-        catch (NumberFormatException e){
-            addAppDialog.setContentText("Please Enter a User ID Number");
+        Users US = addUser.getSelectionModel().getSelectedItem();
+        if(US == null){
+            addAppDialog.setContentText("Please Select a User");
             return;
+        }
+        else{
+            userId = US.getUserId();
         }
 
         String contact;
