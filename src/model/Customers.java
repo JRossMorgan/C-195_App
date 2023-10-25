@@ -56,4 +56,8 @@ public class Customers {
         }
         return getCustomerAppointments;
     }*/
+    @Override
+    public String toString(){
+        return String.valueOf(customerId);
+    }
 }

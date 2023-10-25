@@ -39,27 +39,23 @@ public class AddAppointmentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       /*addContact.setItems(ContactsDAO.getAllContacts());
+        addContact.setItems(ContactsDAO.getAllContacts());
         addCustomer.setItems(CustomersDAO.getAllCustomers());
         addUser.setItems(UsersDAO.getAllUsers());
 
-        ZonedDateTime s = ZonedDateTime.of(addDate.getValue(), LocalTime.parse("8"), ZoneId.of("EST"));
-        ZonedDateTime e = ZonedDateTime.of(addDate.getValue(), LocalTime.parse("22"), ZoneId.of("EST"));
-        while(s.isBefore(e.plusSeconds(1))){
-            addStart.getItems().add(s.toLocalTime());
-            s = s.plusMinutes(30);
-        }
+
+
         LocalTime q = LocalTime.of(0, 30);
-        LocalTime z = LocalTime.of(23, 30);
+        LocalTime z = LocalTime.of(8, 30);
         while(q.isBefore(z.plusSeconds(1))){
             addEnd.getItems().add(q);
             q = q.plusMinutes(30);
-        }*/
+        }
         
 
     }
 
-    public void onAddSave(ActionEvent actionEvent) {
+    public void onAddSave(ActionEvent actionEvent) throws IOException{
 
         String title = addTitle.getText();
         if(title.isBlank()){
@@ -82,7 +78,7 @@ public class AddAppointmentController implements Initializable {
         }
 
         int customerID = 0;
-        Customers CU = (Customers) addCustomer.getSelectionModel().getSelectedItem();
+        Customers CU = addCustomer.getSelectionModel().getSelectedItem();
         if(CU == null){
             addAppDialog.setContentText("Please Select a Customer");
             return;
@@ -139,8 +135,8 @@ public class AddAppointmentController implements Initializable {
         LocalDateTime appointmentStart = LocalDateTime.of(appDate, SP);
         LocalDateTime appointmentEnd = LocalDateTime.of(appDate, EZ);
 
-        ZonedDateTime open = ZonedDateTime.of(appDate, LocalTime.parse("8"), ZoneId.of("EST"));
-        ZonedDateTime close = ZonedDateTime.of(appDate, LocalTime.parse("22"), ZoneId.of("EST"));
+        ZonedDateTime open = ZonedDateTime.of(appDate, LocalTime.of(8, 0), ZoneId.of("EST"));
+        ZonedDateTime close = ZonedDateTime.of(appDate, LocalTime.of(22, 0), ZoneId.of("EST"));
 
         LocalDateTime startTime;
         if(appointmentStart.isBefore(open.toLocalDateTime()) || appointmentStart.isAfter(close.toLocalDateTime())){
@@ -160,7 +156,31 @@ public class AddAppointmentController implements Initializable {
             endTime = appointmentEnd;
         }
 
-        AppointmentDAO.insertAppointment(title, description, location, type, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), customerID, userId, contactId);
+        for(Appointment eA : AppointmentDAO.getAppointments()){
+            if(customerID == eA.getCustomerId()){
+                if((startTime.isBefore(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && endTime.isAfter(eA.getStartTime())){
+                    addAppDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
+                    return;
+                }
+                else if((startTime.isAfter(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && startTime.isBefore(eA.getEndTime())){
+                    addAppDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
+                    return;
+                }
+                else if((startTime.isBefore(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && (endTime.isAfter(eA.getEndTime()) || endTime.isEqual(eA.getEndTime()))){
+                    addAppDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
+                    return;
+                }
+                else{
+                    AppointmentDAO.insertAppointment(title, description, location, type, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), customerID, userId, contactId);
+
+                    Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
+                    Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            }
+        }
     }
 
     public void onAddCancel(ActionEvent actionEvent) throws IOException {
