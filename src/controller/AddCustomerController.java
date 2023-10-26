@@ -95,6 +95,7 @@ public class AddCustomerController implements Initializable {
     }
 
     public void onSelect(ActionEvent actionEvent) {
+        countryDivision.clear();
         Country SP = (Country) addCountry.getSelectionModel().getSelectedItem();
         if(SP == null){
             return;

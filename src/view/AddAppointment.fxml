@@ -26,7 +26,7 @@
       <Label layoutX="307.0" layoutY="134.0" text="Contact" />
       <Label layoutX="266.0" layoutY="190.0" text="Appointment Date" />
       <ComboBox fx:id="addEnd" layoutX="400.0" layoutY="300.0" prefWidth="150.0" />
-      <DatePicker fx:id="addDate" layoutX="388.0" layoutY="186.0" />
+      <DatePicker fx:id="addDate" layoutX="388.0" layoutY="186.0" onAction="#onSelect" />
       <Label layoutX="315.0" layoutY="246.0" text="Start Time" />
       <Label layoutX="315.0" layoutY="304.0" text="End Time" />
       <Button fx:id="addSave" layoutX="214.0" layoutY="497.0" mnemonicParsing="false" onAction="#onAddSave" text="Save" />

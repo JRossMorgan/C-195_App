@@ -45,12 +45,12 @@ public class AddAppointmentController implements Initializable {
 
 
 
-        LocalTime q = LocalTime.of(0, 30);
+        /*LocalTime q = LocalTime.of(0, 30);
         LocalTime z = LocalTime.of(8, 30);
         while(q.isBefore(z.plusSeconds(1))){
             addEnd.getItems().add(q);
             q = q.plusMinutes(30);
-        }
+        }*/
         
 
     }
@@ -135,8 +135,8 @@ public class AddAppointmentController implements Initializable {
         LocalDateTime appointmentStart = LocalDateTime.of(appDate, SP);
         LocalDateTime appointmentEnd = LocalDateTime.of(appDate, EZ);
 
-        ZonedDateTime open = ZonedDateTime.of(appDate, LocalTime.of(8, 0), ZoneId.of("EST"));
-        ZonedDateTime close = ZonedDateTime.of(appDate, LocalTime.of(22, 0), ZoneId.of("EST"));
+        ZonedDateTime open = ZonedDateTime.of(appDate, LocalTime.of(8, 0), ZoneId.of("America/New_York"));
+        ZonedDateTime close = ZonedDateTime.of(appDate, LocalTime.of(22, 0), ZoneId.of("America/New_York"));
 
         LocalDateTime startTime;
         if(appointmentStart.isBefore(open.toLocalDateTime()) || appointmentStart.isAfter(close.toLocalDateTime())){
@@ -189,5 +189,27 @@ public class AddAppointmentController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void onSelect(ActionEvent actionEvent) {
+        ZonedDateTime s = ZonedDateTime.of(addDate.getValue(), LocalTime.of(8, 0), ZoneId.of("America/New_York"));
+        ZonedDateTime e = ZonedDateTime.of(addDate.getValue(), LocalTime.of(21, 30), ZoneId.of("America/New_York"));
+
+        LocalTime localS = s.toLocalTime();
+        LocalTime localE = e.toLocalTime();
+        while(localS.isBefore(localE.plusSeconds(1))){
+            addStart.getItems().add(localS);
+            localS = localS.plusMinutes(30);
+        }
+
+        ZonedDateTime t = ZonedDateTime.of(addDate.getValue(), LocalTime.of(8, 30), ZoneId.of("America/New_York"));
+        ZonedDateTime l = ZonedDateTime.of(addDate.getValue(), LocalTime.of(22, 0), ZoneId.of("America/New_York"));
+
+        LocalTime localT = t.toLocalTime();
+        LocalTime localL = l.toLocalTime();
+        while(localT.isBefore(localL.plusSeconds(1))){
+            addEnd.getItems().add(localT);
+            localT = localT.plusMinutes(30);
+        }
     }
 }
