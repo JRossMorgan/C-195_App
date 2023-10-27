@@ -42,17 +42,6 @@ public class AddAppointmentController implements Initializable {
         addContact.setItems(ContactsDAO.getAllContacts());
         addCustomer.setItems(CustomersDAO.getAllCustomers());
         addUser.setItems(UsersDAO.getAllUsers());
-
-
-
-        /*LocalTime q = LocalTime.of(0, 30);
-        LocalTime z = LocalTime.of(8, 30);
-        while(q.isBefore(z.plusSeconds(1))){
-            addEnd.getItems().add(q);
-            q = q.plusMinutes(30);
-        }*/
-        
-
     }
 
     public void onAddSave(ActionEvent actionEvent) throws IOException{
@@ -60,21 +49,25 @@ public class AddAppointmentController implements Initializable {
         String title = addTitle.getText();
         if(title.isBlank()){
             addAppDialog.setContentText("Please Enter a Title");
+            return;
         }
 
         String description= addDescription.getText();
         if(description.isBlank()){
             addAppDialog.setContentText("Please Enter a Description");
+            return;
         }
 
         String location = addLocation.getText();
         if(location.isBlank()){
             addAppDialog.setContentText("Please Enter a Location");
+            return;
         }
 
         String type =  addType.getText();
         if(type.isBlank()){
             addAppDialog.setContentText("Please Enter a Type");
+            return;
         }
 
         int customerID = 0;

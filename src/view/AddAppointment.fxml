@@ -34,5 +34,7 @@
       <DialogPane fx:id="addAppDialog" layoutX="307.0" layoutY="359.0" prefHeight="107.0" prefWidth="360.0" />
       <ComboBox fx:id="addCustomer" layoutX="99.0" layoutY="360.0" prefWidth="150.0" />
       <ComboBox fx:id="addUser" layoutX="99.0" layoutY="419.0" prefWidth="150.0" />
+      <TextField editable="false" layoutX="90.0" layoutY="90.0" prefHeight="25.0" prefWidth="32.0" />
+      <Label layoutX="38.0" layoutY="94.0" text="ID" />
    </children>
 </AnchorPane>

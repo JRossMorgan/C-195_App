@@ -167,10 +167,15 @@ public class AppointmentsController implements Initializable {
     }
 
     public void onUpdateMonth(ActionEvent actionEvent) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/view/UpdateAppointment.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/UpdateAppointment.fxml"));
+        loader.load();
+
+        UpdateAppointmentController updatingAppointment = loader.getController();
+        updatingAppointment.updateAppointment((Appointment) appMonth.getSelectionModel().getSelectedItem());
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+        Parent scene = loader.getRoot();
+        stage.setScene(new Scene(scene));
         stage.show();
     }
 
@@ -201,10 +206,15 @@ public class AppointmentsController implements Initializable {
     }
 
     public void onUpdateWeek(ActionEvent actionEvent) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/view/UpdateAppointment.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/UpdateAppointment.fxml"));
+        loader.load();
+
+        UpdateAppointmentController updatingAppointment = loader.getController();
+        updatingAppointment.updateAppointment((Appointment) appWeek.getSelectionModel().getSelectedItem());
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+        Parent scene = loader.getRoot();
+        stage.setScene(new Scene(scene));
         stage.show();
     }
 

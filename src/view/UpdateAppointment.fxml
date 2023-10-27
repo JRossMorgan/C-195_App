@@ -20,14 +20,14 @@
       <Label layoutX="29.0" layoutY="304.0" text="Type" />
       <Label layoutX="19.0" layoutY="364.0" text="Customer ID" />
       <Label layoutX="29.0" layoutY="423.0" text="User ID" />
-      <TextField fx:id="updateId" editable="false" layoutX="111.0" layoutY="94.0" prefHeight="25.0" prefWidth="46.0" />
+      <TextField fx:id="updateId" editable="false" layoutX="90.0" layoutY="94.0" prefHeight="25.0" prefWidth="39.0" />
       <Label layoutX="28.0" layoutY="98.0" text="ID" />
       <ComboBox fx:id="updateContact" layoutX="400.0" layoutY="130.0" prefWidth="150.0" />
       <ComboBox fx:id="updateStart" layoutX="400.0" layoutY="242.0" prefWidth="150.0" />
       <Label layoutX="307.0" layoutY="134.0" text="Contact" />
       <Label layoutX="266.0" layoutY="190.0" text="Appointment Date" />
       <ComboBox fx:id="updateEnd" layoutX="400.0" layoutY="300.0" prefWidth="150.0" />
-      <DatePicker fx:id="updateDate" layoutX="388.0" layoutY="186.0" />
+      <DatePicker fx:id="updateDate" layoutX="388.0" layoutY="186.0" onAction="#onSelect" />
       <Label layoutX="315.0" layoutY="246.0" text="Start Time" />
       <Label layoutX="315.0" layoutY="304.0" text="End Time" />
       <ComboBox fx:id="updateCustomer" layoutX="99.0" layoutY="360.0" prefWidth="150.0" />
