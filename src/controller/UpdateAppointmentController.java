@@ -1,5 +1,6 @@
 package controller;
 
+import DAO.AppointmentDAO;
 import DAO.ContactsDAO;
 import DAO.CustomersDAO;
 import DAO.UsersDAO;
@@ -17,10 +18,10 @@ import model.Users;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.sql.Timestamp;
+import java.time.*;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class UpdateAppointmentController implements Initializable {
     public TextField updateTitle;
@@ -72,7 +73,7 @@ public class UpdateAppointmentController implements Initializable {
 
     }
 
-    public void onUpdateSave(ActionEvent actionEvent) {
+    public void onUpdateSave(ActionEvent actionEvent) throws IOException{
         int updatedId = 0;
         try{
             updatedId = Integer.parseInt(updateId.getText());
@@ -106,7 +107,110 @@ public class UpdateAppointmentController implements Initializable {
             return;
         }
 
+        int customer = 0;
+        Customers CU = updateCustomer.getSelectionModel().getSelectedItem();
+        if(CU == null){
+            updateDialog.setContentText("Please select a customer");
+            return;
+        }
+        else{
+            customer = CU.getCustomerId();
+        }
 
+        int user = 0;
+        Users US = updateUser.getSelectionModel().getSelectedItem();
+        if(US == null){
+            updateDialog.setContentText("Please select a user");
+            return;
+        }
+        else{
+            user = US.getUserId();
+        }
+
+        String contact;
+        Contacts PQ = (Contacts) updateContact.getSelectionModel().getSelectedItem();
+        if(PQ == null){
+            updateDialog.setContentText("Please Select a Contact");
+            return;
+        }
+        else{
+            contact = PQ.getContactName();
+        }
+
+        int contactId = 0;
+        for(Contacts contacts : ContactsDAO.getAllContacts()){
+            if(contacts.getContactName().contentEquals(contact)){
+                contactId = contacts.getContactId();
+            }
+        }
+
+        LocalDate date = updateDate.getValue();
+        if(date == null){
+            updateDialog.setContentText("Please select a date");
+            return;
+        }
+
+        LocalTime SP = updateStart.getSelectionModel().getSelectedItem();
+        if(SP == null){
+            updateDialog.setContentText("Please Select an Appointment Start Time");
+            return;
+        }
+
+        LocalTime EZ = updateEnd.getSelectionModel().getSelectedItem();
+        if(EZ == null){
+            updateDialog.setContentText("Please Select an Appointment end time");
+            return;
+        }
+
+        LocalDateTime appointmentStart = LocalDateTime.of(date, SP);
+        LocalDateTime appointmentEnd = LocalDateTime.of(date, EZ);
+
+        ZonedDateTime open = ZonedDateTime.of(date, LocalTime.of(8, 0), ZoneId.of("America/New_York"));
+        ZonedDateTime close = ZonedDateTime.of(date, LocalTime.of(22, 0), ZoneId.of("America/New_York"));
+
+        LocalDateTime startTime;
+        if(appointmentStart.isBefore(open.toLocalDateTime()) || appointmentStart.isAfter(close.toLocalDateTime())){
+            updateDialog.setContentText("Please Choose a Start Time Between 8 AM and 10 PM EST");
+            return;
+        }
+        else{
+            startTime = appointmentStart;
+        }
+
+        LocalDateTime endTime;
+        if(appointmentEnd.isBefore(open.toLocalDateTime()) || appointmentEnd.isAfter(close.toLocalDateTime())){
+            updateDialog.setContentText("Please Choose an End Time Between 8 AM and 10 PM EST");
+            return;
+        }
+        else{
+            endTime = appointmentEnd;
+        }
+
+        for(Appointment eA : AppointmentDAO.getAppointments()){
+            if(customer == eA.getCustomerId()){
+                if((startTime.isBefore(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && endTime.isAfter(eA.getStartTime())){
+                    updateDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
+                    return;
+                }
+                else if((startTime.isAfter(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && startTime.isBefore(eA.getEndTime())){
+                    updateDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
+                    return;
+                }
+                else if((startTime.isBefore(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && (endTime.isAfter(eA.getEndTime()) || endTime.isEqual(eA.getEndTime()))){
+                    updateDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
+                    return;
+                }
+                else{
+                    AppointmentDAO.insertAppointment(title, description, location, type, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), customer, user, contactId);
+
+                    Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
+                    Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            }
+        }
     }
 
     public void onUpdateCancel(ActionEvent actionEvent) throws IOException {
@@ -121,8 +225,11 @@ public class UpdateAppointmentController implements Initializable {
         ZonedDateTime s = ZonedDateTime.of(updateDate.getValue(), LocalTime.of(8, 0), ZoneId.of("America/New_York"));
         ZonedDateTime e = ZonedDateTime.of(updateDate.getValue(), LocalTime.of(21, 30), ZoneId.of("America/New_York"));
 
-        LocalTime localS = s.toLocalTime();
-        LocalTime localE = e.toLocalTime();
+        ZonedDateTime zonedS = s.withZoneSameInstant(ZoneId.systemDefault());
+        ZonedDateTime zonedE = e.withZoneSameInstant(ZoneId.systemDefault());
+
+        LocalTime localS = zonedS.toLocalTime();
+        LocalTime localE = zonedE.toLocalTime();
         while(localS.isBefore(localE.plusSeconds(1))){
             updateStart.getItems().add(localS);
             localS = localS.plusMinutes(30);
@@ -131,8 +238,11 @@ public class UpdateAppointmentController implements Initializable {
         ZonedDateTime t = ZonedDateTime.of(updateDate.getValue(), LocalTime.of(8, 30), ZoneId.of("America/New_York"));
         ZonedDateTime l = ZonedDateTime.of(updateDate.getValue(), LocalTime.of(22, 0), ZoneId.of("America/New_York"));
 
-        LocalTime localT = t.toLocalTime();
-        LocalTime localL = l.toLocalTime();
+        ZonedDateTime zonedT = t.withZoneSameInstant(ZoneId.systemDefault());
+        ZonedDateTime zonedL = l.withZoneSameInstant(ZoneId.systemDefault());
+
+        LocalTime localT = zonedT.toLocalTime();
+        LocalTime localL = zonedL.toLocalTime();
         while(localT.isBefore(localL.plusSeconds(1))){
             updateEnd.getItems().add(localT);
             localT = localT.plusMinutes(30);

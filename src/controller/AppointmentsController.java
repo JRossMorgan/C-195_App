@@ -129,6 +129,7 @@ public class AppointmentsController implements Initializable {
     }
 
     public void onChooseMonth(ActionEvent actionEvent) {
+        monthlyAppointment.clear();
         Month SP = monthBox.getSelectionModel().getSelectedItem();
         if(SP == null){
             return;
@@ -143,6 +144,7 @@ public class AppointmentsController implements Initializable {
     }
 
     public void onChooseWeek(ActionEvent actionEvent) {
+        weeklyAppointment.clear();
         LocalDate SP = chooseWeek.getValue();
         if(SP == null){
             return;

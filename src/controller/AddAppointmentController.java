@@ -21,6 +21,7 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.time.*;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class AddAppointmentController implements Initializable {
     public TextField addTitle;
@@ -188,8 +189,11 @@ public class AddAppointmentController implements Initializable {
         ZonedDateTime s = ZonedDateTime.of(addDate.getValue(), LocalTime.of(8, 0), ZoneId.of("America/New_York"));
         ZonedDateTime e = ZonedDateTime.of(addDate.getValue(), LocalTime.of(21, 30), ZoneId.of("America/New_York"));
 
-        LocalTime localS = s.toLocalTime();
-        LocalTime localE = e.toLocalTime();
+        ZonedDateTime zonedS = s.withZoneSameInstant(ZoneId.systemDefault());
+        ZonedDateTime zonedE = e.withZoneSameInstant(ZoneId.systemDefault());
+
+        LocalTime localS = zonedS.toLocalTime();
+        LocalTime localE = zonedE.toLocalTime();
         while(localS.isBefore(localE.plusSeconds(1))){
             addStart.getItems().add(localS);
             localS = localS.plusMinutes(30);
@@ -198,8 +202,11 @@ public class AddAppointmentController implements Initializable {
         ZonedDateTime t = ZonedDateTime.of(addDate.getValue(), LocalTime.of(8, 30), ZoneId.of("America/New_York"));
         ZonedDateTime l = ZonedDateTime.of(addDate.getValue(), LocalTime.of(22, 0), ZoneId.of("America/New_York"));
 
-        LocalTime localT = t.toLocalTime();
-        LocalTime localL = l.toLocalTime();
+        ZonedDateTime zonedT = t.withZoneSameInstant(ZoneId.systemDefault());
+        ZonedDateTime zonedL = l.withZoneSameInstant(ZoneId.systemDefault());
+
+        LocalTime localT = zonedT.toLocalTime();
+        LocalTime localL = zonedL.toLocalTime();
         while(localT.isBefore(localL.plusSeconds(1))){
             addEnd.getItems().add(localT);
             localT = localT.plusMinutes(30);
