@@ -83,11 +83,11 @@ public class LogIn implements Initializable {
                 loginReport.println(loginAtempt);
 
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/view/MainPageController.fxml"));
+                loader.setLocation(getClass().getResource("/view/Main_Page.fxml"));
                 loader.load();
 
                 MainPageController settingUser = loader.getController();
-                settingUser.setUser(user);
+                settingUser.setUser((Users) user);
                 Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
                 Parent scene = loader.getRoot();
                 stage.setScene(new Scene(scene));

@@ -126,6 +126,8 @@ public class AppointmentsController implements Initializable {
         testCustomer.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         testUser.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
+        appMonth.refresh();
+        appWeek.refresh();
     }
 
     public void onChooseMonth(ActionEvent actionEvent) {
@@ -194,6 +196,7 @@ public class AppointmentsController implements Initializable {
             if(pressed.isPresent() && pressed.get() == ButtonType.OK){
                 AppointmentDAO.deleteAppointment(SP.getAppointmentId());
                 appDialog.setContentText("Appointment " + SP.getAppointmentId() + " " + SP.getType() + " has been canceled.");
+                appMonth.refresh();
                 return;
             }
         }
@@ -233,6 +236,7 @@ public class AppointmentsController implements Initializable {
             if(pressed.isPresent() && pressed.get() == ButtonType.OK){
                 AppointmentDAO.deleteAppointment(SP.getAppointmentId());
                 appDialog.setContentText("Appointment " + SP.getAppointmentId() + " " + SP.getType() + " has been canceled.");
+                appWeek.refresh();
                 return;
             }
         }

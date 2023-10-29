@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.*;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
@@ -175,21 +176,32 @@ public class UpdateAppointmentController implements Initializable {
         ZonedDateTime zonedClose = close.withZoneSameInstant(ZoneId.of("GMT"));
 
         LocalDateTime startTime;
-        if(zonedStart.isBefore(zonedOpen) || zonedStart.isAfter(zonedClose)){
-            updateDialog.setContentText("Please Choose a Start Time Between 8 AM and 10 PM EST");
-            return;
+
+        try{
+            if(zonedStart.isBefore(zonedOpen) || zonedStart.isAfter(zonedClose)){
+                updateDialog.setContentText("Please Choose a Start Time Between 8 AM and 10 PM EST");
+                return;
+            }
+            else{
+                startTime = zonedStart.toLocalDateTime();
+            }
         }
-        else{
-            startTime = zonedStart.toLocalDateTime();
+        catch(NullPointerException e){
+            return;
         }
 
         LocalDateTime endTime;
-        if(zonedEnd.isBefore(zonedOpen) || zonedEnd.isAfter(zonedClose)){
-            updateDialog.setContentText("Please Choose an End Time Between 8 AM and 10 PM EST");
-            return;
+        try{
+            if(zonedEnd.isBefore(zonedOpen) || zonedEnd.isAfter(zonedClose)){
+                updateDialog.setContentText("Please Choose an End Time Between 8 AM and 10 PM EST");
+                return;
+            }
+            else{
+                endTime = zonedEnd.toLocalDateTime();
+            }
         }
-        else{
-            endTime = zonedEnd.toLocalDateTime();
+        catch(NullPointerException e){
+            return;
         }
 
         for(Appointment eA : AppointmentDAO.getAppointments()){
@@ -207,7 +219,7 @@ public class UpdateAppointmentController implements Initializable {
                     return;
                 }
                 else{
-                    AppointmentDAO.insertAppointment(title, description, location, type, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), customer, user, contactId);
+                    AppointmentDAO.updateAppointment(updatedId, title, description, location, type, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), customer, user, contactId);
 
                     Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
                     Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();

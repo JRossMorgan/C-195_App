@@ -20,5 +20,6 @@
             <Font name="System Bold" size="11.0" />
          </font>
       </Button>
+      <DialogPane fx:id="mainDialog" layoutX="40.0" layoutY="357.0" />
    </children>
 </AnchorPane>

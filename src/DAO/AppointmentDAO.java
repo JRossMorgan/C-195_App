@@ -52,7 +52,7 @@ public class AppointmentDAO {
             ps.setInt(7, customerId);
             ps.setInt(8, userId);
             ps.setInt(9, contactId);
-            ps.executeUpdate();
+            ps.execute();
 
         }
         catch(SQLException throwables){
@@ -60,21 +60,21 @@ public class AppointmentDAO {
         }
 
     }
-    public static void updateAppointment(int id, String title, String description, String location, String type, String contact, Timestamp startTime, Timestamp endTime, int customerId, int userId, int contactId){
-        String sql = "update appointments, contacts set Title = ?, Description = ?, Location = ?, Type = ?, contact = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ? where Appointment_ID = ? and Contact_ID = ? ";
+    public static void updateAppointment(int id, String title, String description, String location, String type, Timestamp startTime, Timestamp endTime, int customerId, int userId, int contactId){
+        String sql = "update appointments set Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? where Appointment_ID = ?";
         try{
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
             ps.setString(1,title);
             ps.setString(2, description);
             ps.setString(3, location);
             ps.setString(4, type);
-            ps.setString(5, contact);
-            ps.setTimestamp(6, startTime);
-            ps.setTimestamp(7, endTime);
-            ps.setInt(8, customerId);
-            ps.setInt(9, userId);
+            ps.setTimestamp(5, startTime);
+            ps.setTimestamp(6, endTime);
+            ps.setInt(7, customerId);
+            ps.setInt(8, userId);
+            ps.setInt(9, contactId);
             ps.setInt(10, id);
-            ps.setInt(11, contactId);
+
             ps.executeUpdate();
         }
         catch (SQLException throwables){
