@@ -82,10 +82,15 @@ public class LogIn implements Initializable {
                 loginAtempt = userName + " " + LocalDateTime.ofInstant(Instant.now(), ZoneId.of("GMT")) + " " + "Attempt: Successful";
                 loginReport.println(loginAtempt);
 
-                Parent root = FXMLLoader.load(getClass().getResource("/view/Main_Page.fxml"));
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/view/MainPageController.fxml"));
+                loader.load();
+
+                MainPageController settingUser = loader.getController();
+                settingUser.setUser(user);
                 Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
+                Parent scene = loader.getRoot();
+                stage.setScene(new Scene(scene));
                 stage.show();
 
             }

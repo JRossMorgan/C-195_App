@@ -126,28 +126,34 @@ public class AddAppointmentController implements Initializable {
             return;
         }
 
-        LocalDateTime appointmentStart = LocalDateTime.of(appDate, SP);
-        LocalDateTime appointmentEnd = LocalDateTime.of(appDate, EZ);
+        ZonedDateTime appointmentStart = ZonedDateTime.of(appDate, SP, ZoneId.systemDefault());
+        ZonedDateTime appointmentEnd = ZonedDateTime.of(appDate, EZ, ZoneId.systemDefault());
+
+        ZonedDateTime zonedStart = appointmentStart.withZoneSameInstant(ZoneId.of("GMT"));
+        ZonedDateTime zonedEnd = appointmentEnd.withZoneSameInstant(ZoneId.of("GMT"));
 
         ZonedDateTime open = ZonedDateTime.of(appDate, LocalTime.of(8, 0), ZoneId.of("America/New_York"));
         ZonedDateTime close = ZonedDateTime.of(appDate, LocalTime.of(22, 0), ZoneId.of("America/New_York"));
 
+        ZonedDateTime zonedOpen = open.withZoneSameInstant(ZoneId.of("GMT"));
+        ZonedDateTime zonedClose = close.withZoneSameInstant(ZoneId.of("GMT"));
+
         LocalDateTime startTime;
-        if(appointmentStart.isBefore(open.toLocalDateTime()) || appointmentStart.isAfter(close.toLocalDateTime())){
+        if(zonedStart.isBefore(zonedOpen) || zonedStart.isAfter(zonedClose)){
             addAppDialog.setContentText("Please Choose a Start Time Between 8 AM and 10 PM EST");
             return;
         }
         else{
-            startTime = appointmentStart;
+            startTime = zonedStart.toLocalDateTime();
         }
 
         LocalDateTime endTime;
-        if(appointmentEnd.isBefore(open.toLocalDateTime()) || appointmentEnd.isAfter(close.toLocalDateTime())){
+        if(zonedEnd.isBefore(zonedOpen) || zonedEnd.isAfter(zonedClose)){
             addAppDialog.setContentText("Please Choose an End Time Between 8 AM and 10 PM EST");
             return;
         }
         else{
-            endTime = appointmentEnd;
+            endTime = zonedEnd.toLocalDateTime();
         }
 
         for(Appointment eA : AppointmentDAO.getAppointments()){
