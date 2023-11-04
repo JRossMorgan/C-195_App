@@ -33,31 +33,28 @@ public class MainPageController implements Initializable {
     public void setUser (Users userToSet){
         int loggedInUser = userToSet.getUserId();
 
-        LocalDateTime logInTime = LocalDateTime.now();
-        ZonedDateTime zonedLogIn = ZonedDateTime.of(logInTime.toLocalDate(), logInTime.toLocalTime(), ZoneId.of("GMT"));
-
-        LocalDateTime converted = zonedLogIn.toLocalDateTime();
-
         for(Appointment appointment : AppointmentDAO.getAppointments()){
             if(appointment.getUserId() == loggedInUser){
                 userAppointments.add(appointment);
             }
         }
 
-        Long timeDifference;
+        LocalDateTime logInTime = LocalDateTime.now();
+        long timeDifference;
+        boolean appointmentAlert = false;
         for(Appointment timedAppointment : userAppointments){
-            if(ChronoUnit.MINUTES.between(converted, timedAppointment.getStartTime()) <= 15){
-                timeDifference = ChronoUnit.MINUTES.between(converted, timedAppointment.getStartTime());
+            if(timedAppointment.getStartTime().isAfter(logInTime) && timedAppointment.getStartTime().isBefore(logInTime.plusMinutes(15))){
+                appointmentAlert = true;
+                timeDifference = ChronoUnit.MINUTES.between(logInTime, timedAppointment.getStartTime());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Upcoming Appointment");
                 alert.setContentText("You have an appointment in " + timeDifference + " minute(s)");
-                return;
+                alert.showAndWait();
 
             }
-            else{
-                mainDialog.setContentText("You have no upcoming appointments.");
-                return;
-            }
+        }
+        if(! appointmentAlert){
+            mainDialog.setContentText("No upcoming appointments scheduled.");
         }
     }
 

@@ -205,27 +205,38 @@ public class UpdateAppointmentController implements Initializable {
         }
 
         for(Appointment eA : AppointmentDAO.getAppointments()){
-            if(customer == eA.getCustomerId()){
-                if((startTime.isBefore(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && endTime.isAfter(eA.getStartTime())){
-                    updateDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
-                    return;
-                }
-                else if((startTime.isAfter(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && startTime.isBefore(eA.getEndTime())){
-                    updateDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
-                    return;
-                }
-                else if((startTime.isBefore(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && (endTime.isAfter(eA.getEndTime()) || endTime.isEqual(eA.getEndTime()))){
-                    updateDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
-                    return;
-                }
-                else{
-                    AppointmentDAO.updateAppointment(updatedId, title, description, location, type, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), customer, user, contactId);
+            if(eA.getAppointmentId() == updatedId){
+                AppointmentDAO.updateAppointment(updatedId, title, description, location, type, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), customer, user, contactId);
 
-                    Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
-                    Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-                    Scene scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.show();
+                Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
+                Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+            else{
+                if(customer == eA.getCustomerId()){
+                    if((startTime.isBefore(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && endTime.isAfter(eA.getStartTime())){
+                        updateDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
+                        return;
+                    }
+                    else if((startTime.isAfter(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && startTime.isBefore(eA.getEndTime())){
+                        updateDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
+                        return;
+                    }
+                    else if((startTime.isBefore(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && (endTime.isAfter(eA.getEndTime()) || endTime.isEqual(eA.getEndTime()))){
+                        updateDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
+                        return;
+                    }
+                    else{
+                        AppointmentDAO.updateAppointment(updatedId, title, description, location, type, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), customer, user, contactId);
+
+                        Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
+                        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+                        Scene scene = new Scene(root);
+                        stage.setScene(scene);
+                        stage.show();
+                    }
                 }
             }
         }

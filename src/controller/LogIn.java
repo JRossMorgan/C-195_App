@@ -70,17 +70,19 @@ public class LogIn implements Initializable {
             }
             return;
         }
-        String loginAtempt = "login_activity.txt", atempt;
+        String loginAttempt = "login_activity.txt", attempt;
 
-        FileWriter file = new FileWriter(loginAtempt, true);
+        FileWriter file = new FileWriter(loginAttempt, true);
         PrintWriter loginReport = new PrintWriter(file);
 
+        boolean logIn = false;
 
         for(Users user : UsersDAO.getAllUsers()){
-            System.out.println(user.getUserName() + " " + user.getPassword());
-            if(userName.equals(user.getUserName()) && password.equals(user.getPassword())){
-                loginAtempt = userName + " " + LocalDateTime.ofInstant(Instant.now(), ZoneId.of("GMT")) + " " + "Attempt: Successful";
-                loginReport.println(loginAtempt);
+            //System.out.println(user.getUserName() + " " + user.getPassword());
+            if(user.getUserName().equals(userName) && user.getPassword().equals(password)){
+                logIn = true;
+                attempt = userName + " " + LocalDateTime.ofInstant(Instant.now(), ZoneId.of("GMT")) + " Attempt: Successful";
+                loginReport.println(attempt);
 
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/view/Main_Page.fxml"));
@@ -92,22 +94,20 @@ public class LogIn implements Initializable {
                 Parent scene = loader.getRoot();
                 stage.setScene(new Scene(scene));
                 stage.show();
-
-            }
-            else {
-                loginAtempt = userName + " " + LocalDateTime.ofInstant(Instant.now(), ZoneId.of("GMT")) + " " + "Attempt: Failed";
-                loginReport.println(loginAtempt);
-                if(Locale.getDefault().getLanguage().equals("fr")){
-                    logInDialog.setContentText("La combinaison des nom d'utilisateur et mot de passe est invalide");
-                }
-                else{
-                    logInDialog.setContentText("Invalid Username and Password Combination");
-                }
             }
             loginReport.close();
         }
-
-
+        if(! logIn){
+            attempt = userName + " " + LocalDateTime.ofInstant(Instant.now(), ZoneId.of("GMT")) + " " + "Attempt: Failed";
+            loginReport.println(attempt);
+            if(Locale.getDefault().getLanguage().equals("fr")){
+                logInDialog.setContentText("La combinaison des nom d'utilisateur et mot de passe est invalide");
+            }
+            else{
+                logInDialog.setContentText("Invalid Username and Password Combination");
+            }
+            loginReport.close();
+        }
     }
 
 
