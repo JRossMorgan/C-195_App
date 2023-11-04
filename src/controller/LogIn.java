@@ -95,6 +95,9 @@ public class LogIn implements Initializable {
                 stage.setScene(new Scene(scene));
                 stage.show();
             }
+            else {
+                continue;
+            }
             loginReport.close();
         }
         if(! logIn){
