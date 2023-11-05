@@ -35,6 +35,7 @@ public class CustomersPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //use lambda to do customer report
         customersTable.setItems(CustomersDAO.getAllCustomers());
 
         customerId.setCellValueFactory(new PropertyValueFactory<>("customerId"));

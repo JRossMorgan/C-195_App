@@ -29,6 +29,7 @@ public class MainPageController implements Initializable {
 
     public ObservableList <Appointment> userAppointments = FXCollections.observableArrayList();
     public DialogPane mainDialog;
+    public Button contact;
 
     public void setUser (Users userToSet){
         int loggedInUser = userToSet.getUserId();
@@ -75,6 +76,14 @@ public class MainPageController implements Initializable {
 
     public void onApp(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void onContact(ActionEvent actionEvent) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Contacts.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

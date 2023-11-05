@@ -166,24 +166,21 @@ public class UpdateAppointmentController implements Initializable {
         ZonedDateTime appointmentStart = ZonedDateTime.of(date, SP, ZoneId.systemDefault());
         ZonedDateTime appointmentEnd = ZonedDateTime.of(date, EZ,ZoneId.systemDefault());
 
-        ZonedDateTime  zonedStart = appointmentStart.withZoneSameInstant(ZoneId.of("GMT"));
-        ZonedDateTime zonedEnd = appointmentEnd.withZoneSameInstant(ZoneId.of("GMT"));
-
         ZonedDateTime open = ZonedDateTime.of(date, LocalTime.of(8, 0), ZoneId.of("America/New_York"));
         ZonedDateTime close = ZonedDateTime.of(date, LocalTime.of(22, 0), ZoneId.of("America/New_York"));
 
-        ZonedDateTime zonedOpen = open.withZoneSameInstant(ZoneId.of("GMT"));
-        ZonedDateTime zonedClose = close.withZoneSameInstant(ZoneId.of("GMT"));
+        ZonedDateTime zonedOpen = open.withZoneSameInstant(ZoneId.systemDefault());
+        ZonedDateTime zonedClose = close.withZoneSameInstant(ZoneId.systemDefault());
 
         LocalDateTime startTime;
 
         try{
-            if(zonedStart.isBefore(zonedOpen) || zonedStart.isAfter(zonedClose)){
+            if(appointmentStart.isBefore(zonedOpen) || appointmentStart.isAfter(zonedClose)){
                 updateDialog.setContentText("Please Choose a Start Time Between 8 AM and 10 PM EST");
                 return;
             }
             else{
-                startTime = zonedStart.toLocalDateTime();
+                startTime = appointmentStart.toLocalDateTime();
             }
         }
         catch(NullPointerException e){
@@ -192,12 +189,12 @@ public class UpdateAppointmentController implements Initializable {
 
         LocalDateTime endTime;
         try{
-            if(zonedEnd.isBefore(zonedOpen) || zonedEnd.isAfter(zonedClose)){
+            if(appointmentEnd.isBefore(zonedOpen) || appointmentEnd.isAfter(zonedClose)){
                 updateDialog.setContentText("Please Choose an End Time Between 8 AM and 10 PM EST");
                 return;
             }
             else{
-                endTime = zonedEnd.toLocalDateTime();
+                endTime = appointmentEnd.toLocalDateTime();
             }
         }
         catch(NullPointerException e){

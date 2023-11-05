@@ -21,5 +21,9 @@
          </font>
       </Button>
       <DialogPane fx:id="mainDialog" layoutX="40.0" layoutY="357.0" />
+      <Button fx:id="contact" alignment="CENTER" contentDisplay="CENTER" layoutX="67.0" layoutY="259.0" mnemonicParsing="false" onAction="#onContact" prefHeight="54.0" prefWidth="90.0" text="Contact Schedule" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
    </children>
 </AnchorPane>
