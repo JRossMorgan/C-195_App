@@ -25,7 +25,10 @@
       <Button fx:id="modCustomer" layoutX="342.0" layoutY="300.0" mnemonicParsing="false" onAction="#onMod" text="Modify" />
       <Button fx:id="deleteCustomer" layoutX="450.0" layoutY="300.0" mnemonicParsing="false" onAction="#onDelete" text="Delete" />
       <Button fx:id="addCustomer" layoutX="245.0" layoutY="300.0" mnemonicParsing="false" onAction="#onAdd" text="Add" />
-      <DialogPane fx:id="custDialog" layoutX="25.0" layoutY="293.0" prefHeight="73.0" prefWidth="212.0" />
+      <DialogPane fx:id="custDialog" layoutX="245.0" layoutY="417.0" prefHeight="140.0" prefWidth="316.0" />
       <Button fx:id="home" layoutX="343.0" layoutY="366.0" mnemonicParsing="false" onAction="#onHome" text="Home" />
+      <ComboBox fx:id="reportMonth" layoutX="54.0" layoutY="417.0" prefWidth="150.0" promptText="Choose Month" />
+      <ComboBox fx:id="reportType" layoutX="54.0" layoutY="475.0" prefWidth="150.0" promptText="Choose Type" />
+      <Button fx:id="generateReport" layoutX="77.0" layoutY="532.0" mnemonicParsing="false" onAction="#onGenerate" text="Generate Report" />
    </children>
 </AnchorPane>

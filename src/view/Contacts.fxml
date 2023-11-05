@@ -17,5 +17,7 @@
             <TableColumn fx:id="contactEmail" prefWidth="161.0" text="Email" />
         </columns>
       </TableView>
+      <Button fx:id="home" layoutX="56.0" layoutY="350.0" mnemonicParsing="false" onAction="#onHome" text="Home" />
+      <DialogPane fx:id="contactDialog" layoutX="400.0" layoutY="140.0" prefHeight="141.0" prefWidth="360.0" />
    </children>
 </AnchorPane>

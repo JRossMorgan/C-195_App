@@ -15,6 +15,7 @@ import DAO.CustomersDAO;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Month;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -32,10 +33,12 @@ public class CustomersPageController implements Initializable {
     public Button addCustomer;
     public DialogPane custDialog;
     public Button home;
+    public ComboBox <Month> reportMonth;
+    public ComboBox <String> reportType;
+    public Button generateReport;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //use lambda to do customer report
         customersTable.setItems(CustomersDAO.getAllCustomers());
 
         customerId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
@@ -45,6 +48,14 @@ public class CustomersPageController implements Initializable {
         custPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
         custDivision.setCellValueFactory(new PropertyValueFactory<>("division"));
         custCountry.setCellValueFactory(new PropertyValueFactory<>("country"));
+
+        for(Appointment appointment : AppointmentDAO.getAppointments()){
+            reportMonth.setValue(appointment.getStartTime().getMonth());
+        }
+
+        for(Appointment type : AppointmentDAO.getAppointments()){
+            reportType.setValue(type.getType());
+        }
     }
 
     public void onMod(ActionEvent actionEvent) throws IOException{
@@ -101,5 +112,23 @@ public class CustomersPageController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void onGenerate(ActionEvent actionEvent) {
+        Month getMonth = reportMonth.getSelectionModel().getSelectedItem();
+        if(getMonth == null){
+            custDialog.setContentText("Please choose a month");
+        }
+        String getType = reportType.getSelectionModel().getSelectedItem();
+        if(getType.isBlank()){
+            custDialog.setContentText("Please choose a type");
+        }
+        int numAppointments = 0;
+        for(Appointment appointment : AppointmentDAO.getAppointments()){
+            if(appointment.getStartTime().getMonth().equals(getMonth) && appointment.getType().equalsIgnoreCase(getType)){
+                numAppointments = numAppointments++;
+            }
+            custDialog.setContentText("There are " + numAppointments + " " + getType + " appointments in " + getMonth);
+        }
     }
 }
