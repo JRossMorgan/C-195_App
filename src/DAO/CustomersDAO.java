@@ -15,7 +15,7 @@ import java.time.ZoneId;
 public class CustomersDAO {
     public static ObservableList<Customers> getAllCustomers(){
         ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
-        String sql = "select Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division, Country from customers, first_level_divisions, countries WHERE customers.Division_ID = first_level_divisions.Division_ID AND first_level_divisions.Country_ID = countries.Country_ID";
+        String sql = "select Customer_ID, Customer_Name, Address, Postal_Code, Phone, Create_Date, Division, Country from customers, first_level_divisions, countries WHERE customers.Division_ID = first_level_divisions.Division_ID AND first_level_divisions.Country_ID = countries.Country_ID";
 
         try{
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
@@ -26,9 +26,10 @@ public class CustomersDAO {
                 String address = rs.getString("Address");
                 String postalCode = rs.getString("Postal_Code");
                 String phone = rs.getString("Phone");
+                LocalDateTime createDate= rs.getTimestamp("Create_Date").toLocalDateTime();
                 String division = rs.getString("Division");
                 String country = rs.getString("Country");
-                Customers createCustomer = new Customers(customerId, name, address, postalCode, phone, division, country);
+                Customers createCustomer = new Customers(customerId, name, address, postalCode, phone, createDate, division, country);
                 allCustomers.add(createCustomer);
             }
         }
@@ -45,7 +46,7 @@ public class CustomersDAO {
             ps.setString(2,address);
             ps.setString(3, postalCode);
             ps.setString(4, phone);
-            ps.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now(ZoneId.of("GMT"))));
+            ps.setTimestamp(5, timestamp.valueOf(LocalDateTime.now()));
             ps.setInt(6, divisionId);
             ps.executeUpdate();
 
