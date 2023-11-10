@@ -79,6 +79,9 @@ public class AppointmentsController implements Initializable {
     public TableColumn <Appointment, Integer> testCustomer;
     public TableColumn <Appointment, Integer> testUser;
     public Button appHome;
+    public ComboBox <Month> reportMonth;
+    public ComboBox <String> reportType;
+    public Button generateReport;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -110,24 +113,16 @@ public class AppointmentsController implements Initializable {
         customerByWeek.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         userByWeek.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
-        for(Appointment appointment : AppointmentDAO.getAppointments()){
-            testAppointment.add(appointment);
-        }
-
-        testTable.setItems(testAppointment);
-        testId.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
-        testTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        testDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        testLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
-        testContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
-        testType.setCellValueFactory(new PropertyValueFactory<>("type"));
-        testStart.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-        testEnd.setCellValueFactory(new PropertyValueFactory<>("endTime"));
-        testCustomer.setCellValueFactory(new PropertyValueFactory<>("customerId"));
-        testUser.setCellValueFactory(new PropertyValueFactory<>("userId"));
-
         appMonth.refresh();
         appWeek.refresh();
+
+        for(Appointment appointment : AppointmentDAO.getAppointments()){
+            reportMonth.setValue(appointment.getStartTime().getMonth());
+        }
+
+        for(Appointment type : AppointmentDAO.getAppointments()){
+            reportType.setValue(type.getType());
+        }
     }
 
     public void onChooseMonth(ActionEvent actionEvent) {
@@ -248,5 +243,23 @@ public class AppointmentsController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void onGenerate(ActionEvent actionEvent) {
+        Month getMonth = reportMonth.getSelectionModel().getSelectedItem();
+        if(getMonth == null){
+            appDialog.setContentText("Please choose a month");
+        }
+        String getType = reportType.getSelectionModel().getSelectedItem();
+        if(getType.isBlank()){
+            appDialog.setContentText("Please choose a type");
+        }
+        int numAppointments = 0;
+        for(Appointment appointment : AppointmentDAO.getAppointments()){
+            if(appointment.getStartTime().getMonth().equals(getMonth) && appointment.getType().equalsIgnoreCase(getType)){
+                numAppointments = numAppointments++;
+            }
+            appDialog.setContentText("There are " + numAppointments + " " + getType + " appointments in " + getMonth);
+        }
     }
 }

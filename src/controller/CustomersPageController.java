@@ -16,9 +16,11 @@ import DAO.CustomersDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 public class CustomersPageController implements Initializable {
     public TableView <Customers> customersTable;
@@ -34,9 +36,7 @@ public class CustomersPageController implements Initializable {
     public Button addCustomer;
     public DialogPane custDialog;
     public Button home;
-    public ComboBox <Month> reportMonth;
-    public ComboBox <String> reportType;
-    public Button generateReport;
+    public Button anniversary;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,13 +50,7 @@ public class CustomersPageController implements Initializable {
         custDivision.setCellValueFactory(new PropertyValueFactory<>("division"));
         custCountry.setCellValueFactory(new PropertyValueFactory<>("country"));
 
-        for(Appointment appointment : AppointmentDAO.getAppointments()){
-            reportMonth.setValue(appointment.getStartTime().getMonth());
-        }
-
-        for(Appointment type : AppointmentDAO.getAppointments()){
-            reportType.setValue(type.getType());
-        }
+        //Predicate<LocalDateTime> anniversary = (s) -> {s.get}
     }
 
     public void onMod(ActionEvent actionEvent) throws IOException{
@@ -115,21 +109,7 @@ public class CustomersPageController implements Initializable {
         stage.show();
     }
 
-    public void onGenerate(ActionEvent actionEvent) {
-        Month getMonth = reportMonth.getSelectionModel().getSelectedItem();
-        if(getMonth == null){
-            custDialog.setContentText("Please choose a month");
-        }
-        String getType = reportType.getSelectionModel().getSelectedItem();
-        if(getType.isBlank()){
-            custDialog.setContentText("Please choose a type");
-        }
-        int numAppointments = 0;
-        for(Appointment appointment : AppointmentDAO.getAppointments()){
-            if(appointment.getStartTime().getMonth().equals(getMonth) && appointment.getType().equalsIgnoreCase(getType)){
-                numAppointments = numAppointments++;
-            }
-            custDialog.setContentText("There are " + numAppointments + " " + getType + " appointments in " + getMonth);
-        }
+    public void onReport(ActionEvent actionEvent) {
+
     }
 }

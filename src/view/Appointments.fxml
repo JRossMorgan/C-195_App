@@ -61,27 +61,18 @@
                         <Button fx:id="addWeek" layoutX="130.0" layoutY="268.0" mnemonicParsing="false" onAction="#onAddWeek" text="Add" />
                         <Button fx:id="updateWeek" layoutX="227.0" layoutY="268.0" mnemonicParsing="false" onAction="#onUpdateWeek" text="Update" />
                         <Button fx:id="deleteWeek" layoutX="321.0" layoutY="268.0" mnemonicParsing="false" onAction="#onDeleteWeek" text="Delete" />
+
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
         </tabs>
       </TabPane>
-      <DialogPane fx:id="appDialog" layoutX="170.0" layoutY="27.0" />
-      <TableView fx:id="testTable" layoutX="23.0" layoutY="417.0" prefHeight="200.0" prefWidth="565.0">
-        <columns>
-            <TableColumn fx:id="testId" prefWidth="44.0" text="ID" />
-            <TableColumn fx:id="testTitle" prefWidth="33.0" text="Title" />
-            <TableColumn fx:id="testDescription" prefWidth="72.0" text="Description" />
-            <TableColumn fx:id="testLocation" prefWidth="63.0" text="Location" />
-            <TableColumn fx:id="testContact" prefWidth="37.0" text="Contact" />
-            <TableColumn fx:id="testType" prefWidth="50.0" text="Type" />
-            <TableColumn fx:id="testStart" prefWidth="71.0" text="Start" />
-            <TableColumn fx:id="testEnd" prefWidth="50.0" text="End" />
-            <TableColumn fx:id="testCustomer" prefWidth="88.0" text="Customer Id" />
-            <TableColumn fx:id="testUser" prefWidth="48.0" text="User Id" />
-        </columns>
-      </TableView>
-      <Button fx:id="appHome" layoutX="263.0" layoutY="628.0" mnemonicParsing="false" onAction="#onHome" text="Home" />
+       <ComboBox fx:id="reportMonth" layoutX="54.0" layoutY="463.0" prefWidth="150.0" promptText="Choose Month" />
+       <ComboBox fx:id="reportType" layoutX="54.0" layoutY="507.0" prefWidth="150.0" promptText="Choose Type" />
+       <Button fx:id="generateReport" layoutX="77.0" layoutY="547.0" mnemonicParsing="false" onAction="#onGenerate" text="Generate Report" />
+
+       <DialogPane fx:id="appDialog" layoutX="245.0" layoutY="428.0" prefHeight="208.0" prefWidth="418.0" />
+      <Button fx:id="appHome" layoutX="80.0" layoutY="612.0" mnemonicParsing="false" onAction="#onHome" text="Home" />
    </children>
 </AnchorPane>
