@@ -163,7 +163,7 @@ public class UpdateAppointmentController implements Initializable {
             return;
         }
 
-        ZonedDateTime appointmentStart = ZonedDateTime.of(date, SP, ZoneId.systemDefault());
+        /*ZonedDateTime appointmentStart = ZonedDateTime.of(date, SP, ZoneId.systemDefault());
         ZonedDateTime appointmentEnd = ZonedDateTime.of(date, EZ,ZoneId.systemDefault());
 
         ZonedDateTime open = ZonedDateTime.of(date, LocalTime.of(8, 0), ZoneId.of("America/New_York"));
@@ -199,41 +199,52 @@ public class UpdateAppointmentController implements Initializable {
         }
         catch(NullPointerException e){
             return;
+        }*/
+
+        LocalDateTime appointmentStart = LocalDateTime.of(updateDate.getValue(), SP);
+        LocalDateTime appointmentEnd = LocalDateTime.of(updateDate.getValue(), EZ);
+
+        if(appointmentStart.isAfter(appointmentEnd)){
+            updateDialog.setContentText("Appointment start time must be before the end.");
+            return;
+        }
+        if(appointmentEnd.isBefore(appointmentStart)){
+            updateDialog.setContentText("Appointment end time must be after the start.");
+            return;
         }
 
         for(Appointment eA : AppointmentDAO.getAppointments()){
-            if(eA.getAppointmentId() == updatedId){
-                AppointmentDAO.updateAppointment(updatedId, title, description, location, type, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), customer, user, contactId);
 
-                Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
-                Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-            }
-            else{
-                if(customer == eA.getCustomerId()){
-                    if((startTime.isBefore(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && endTime.isAfter(eA.getStartTime())){
+            if(customer == eA.getCustomerId()){
+                if(eA.getAppointmentId() == updatedId) {
+                    AppointmentDAO.updateAppointment(updatedId, title, description, location, type, Timestamp.valueOf(appointmentStart), Timestamp.valueOf(appointmentEnd), customer, user, contactId);
+
+                    Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
+                    Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }
+                else if((appointmentStart.isBefore(eA.getStartTime()) || appointmentStart.isEqual(eA.getStartTime())) && appointmentEnd.isAfter(eA.getStartTime())){
                         updateDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
                         return;
-                    }
-                    else if((startTime.isAfter(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && startTime.isBefore(eA.getEndTime())){
+                }
+                else if((appointmentStart.isAfter(eA.getStartTime()) || appointmentStart.isEqual(eA.getStartTime())) && appointmentStart.isBefore(eA.getEndTime())){
                         updateDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
                         return;
-                    }
-                    else if((startTime.isBefore(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && (endTime.isAfter(eA.getEndTime()) || endTime.isEqual(eA.getEndTime()))){
+                }
+                else if((appointmentStart.isBefore(eA.getStartTime()) || appointmentStart.isEqual(eA.getStartTime())) && (appointmentEnd.isAfter(eA.getEndTime()) || appointmentEnd.isEqual(eA.getEndTime()))){
                         updateDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
                         return;
-                    }
-                    else{
-                        AppointmentDAO.updateAppointment(updatedId, title, description, location, type, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), customer, user, contactId);
+                }
+                else{
+                        AppointmentDAO.updateAppointment(updatedId, title, description, location, type, Timestamp.valueOf(appointmentStart), Timestamp.valueOf(appointmentEnd), customer, user, contactId);
 
                         Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
                         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
                         Scene scene = new Scene(root);
                         stage.setScene(scene);
                         stage.show();
-                    }
                 }
             }
         }

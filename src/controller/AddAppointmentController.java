@@ -126,7 +126,19 @@ public class AddAppointmentController implements Initializable {
             return;
         }
 
-        ZonedDateTime appointmentStart = ZonedDateTime.of(appDate, SP, ZoneId.systemDefault());
+        LocalDateTime appointmentStart = LocalDateTime.of(addDate.getValue(), SP);
+        LocalDateTime appointmentEnd = LocalDateTime.of(addDate.getValue(), EZ);
+
+        if(appointmentStart.isAfter(appointmentEnd)){
+            addAppDialog.setContentText("Appointment Start time must be before the end time.");
+            return;
+        }
+        if(appointmentEnd.isBefore(appointmentStart)){
+            addAppDialog.setContentText("Appointment End time must be after the end time.");
+            return;
+        }
+
+        /*ZonedDateTime appointmentStart = ZonedDateTime.of(appDate, SP, ZoneId.systemDefault());
         ZonedDateTime appointmentEnd = ZonedDateTime.of(appDate, EZ, ZoneId.systemDefault());
 
         ZonedDateTime open = ZonedDateTime.of(appDate, LocalTime.of(8, 0), ZoneId.of("America/New_York"));
@@ -151,24 +163,24 @@ public class AddAppointmentController implements Initializable {
         }
         else{
             endTime = appointmentEnd.toLocalDateTime();
-        }
+        }*/
 
         for(Appointment eA : AppointmentDAO.getAppointments()){
             if(customerID == eA.getCustomerId()){
-                if((startTime.isBefore(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && endTime.isAfter(eA.getStartTime())){
+                if((appointmentStart.isBefore(eA.getStartTime()) || appointmentStart.isEqual(eA.getStartTime())) && appointmentEnd.isAfter(eA.getStartTime())){
                     addAppDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
                     return;
                 }
-                else if((startTime.isAfter(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && startTime.isBefore(eA.getEndTime())){
+                else if((appointmentStart.isAfter(eA.getStartTime()) || appointmentStart.isEqual(eA.getStartTime())) && appointmentStart.isBefore(eA.getEndTime())){
                     addAppDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
                     return;
                 }
-                else if((startTime.isBefore(eA.getStartTime()) || startTime.isEqual(eA.getStartTime())) && (endTime.isAfter(eA.getEndTime()) || endTime.isEqual(eA.getEndTime()))){
+                else if((appointmentStart.isBefore(eA.getStartTime()) || appointmentStart.isEqual(eA.getStartTime())) && (appointmentEnd.isAfter(eA.getEndTime()) || appointmentEnd.isEqual(eA.getEndTime()))){
                     addAppDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
                     return;
                 }
                 else{
-                    AppointmentDAO.insertAppointment(title, description, location, type, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), customerID, userId, contactId);
+                    AppointmentDAO.insertAppointment(title, description, location, type, Timestamp.valueOf(appointmentStart), Timestamp.valueOf(appointmentEnd), customerID, userId, contactId);
 
                     Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
                     Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
