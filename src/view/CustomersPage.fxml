@@ -25,7 +25,7 @@
       <Button fx:id="modCustomer" layoutX="245.0" layoutY="300.0" mnemonicParsing="false" onAction="#onMod" text="Modify" />
       <Button fx:id="deleteCustomer" layoutX="333.0" layoutY="300.0" mnemonicParsing="false" onAction="#onDelete" text="Delete" />
       <Button fx:id="addCustomer" layoutX="163.0" layoutY="300.0" mnemonicParsing="false" onAction="#onAdd" text="Add" />
-      <DialogPane fx:id="custDialog" layoutX="245.0" layoutY="417.0" prefHeight="140.0" prefWidth="316.0" />
+      <DialogPane fx:id="custDialog" layoutX="226.0" layoutY="417.0" prefHeight="140.0" prefWidth="413.0" />
       <Button fx:id="home" layoutX="430.0" layoutY="300.0" mnemonicParsing="false" onAction="#onHome" text="Home" />
       <Button fx:id="anniversary" contentDisplay="CENTER" layoutX="78.0" layoutY="417.0" mnemonicParsing="false" onAction="#onReport" prefHeight="57.0" prefWidth="120.0" text="Generate Anniversaries" textAlignment="CENTER" wrapText="true">
          <font>

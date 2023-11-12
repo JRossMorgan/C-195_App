@@ -15,7 +15,7 @@ import java.time.ZoneId;
 public class CustomersDAO {
     public static ObservableList<Customers> getAllCustomers(){
         ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
-        String sql = "select Customer_ID, Customer_Name, Address, Postal_Code, Phone, Create_Date, Division, Country from customers, first_level_divisions, countries WHERE customers.Division_ID = first_level_divisions.Division_ID AND first_level_divisions.Country_ID = countries.Country_ID";
+        String sql = "select Customer_ID, Customer_Name, Address, Postal_Code, Phone, customers.Create_Date, Division, Country from customers, first_level_divisions, countries WHERE customers.Division_ID = first_level_divisions.Division_ID AND first_level_divisions.Country_ID = countries.Country_ID";
 
         try{
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);

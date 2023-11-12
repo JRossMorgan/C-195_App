@@ -40,6 +40,7 @@ public class CustomersPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        customersTable.refresh();
         customersTable.setItems(CustomersDAO.getAllCustomers());
 
         customerId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
@@ -50,7 +51,21 @@ public class CustomersPageController implements Initializable {
         custDivision.setCellValueFactory(new PropertyValueFactory<>("division"));
         custCountry.setCellValueFactory(new PropertyValueFactory<>("country"));
 
-        //Predicate<LocalDateTime> anniversary = (s) -> {s.get}
+        Predicate<LocalDate> anniversary = (s) -> s.isEqual(LocalDate.now());
+
+        boolean anniversaryToday = false;
+        for(Customers customer : CustomersDAO.getAllCustomers()){
+            if(anniversary.test(customer.getCreateDate().toLocalDate())){
+                anniversaryToday = true;
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Customer Anniversary");
+                alert.setContentText("It is " + customer.getName() + "'s anniversary today");
+                alert.showAndWait();
+            }
+        }
+        if(!anniversaryToday){
+            custDialog.setContentText("No anniversaries today");
+        }
     }
 
     public void onMod(ActionEvent actionEvent) throws IOException{
@@ -110,6 +125,14 @@ public class CustomersPageController implements Initializable {
     }
 
     public void onReport(ActionEvent actionEvent) {
-
+        StringBuilder happyAnniversary = new StringBuilder();
+        for(Customers customer : CustomersDAO.getAllCustomers()){
+            happyAnniversary.append(customer.getCreateDate().toLocalDate());
+            happyAnniversary.append(" is ");
+            happyAnniversary.append(customer.getName());
+            happyAnniversary.append("'s anniversary with us!");
+            happyAnniversary.append("\n");
+        }
+        custDialog.setContentText(happyAnniversary.toString());
     }
 }

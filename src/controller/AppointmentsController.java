@@ -58,7 +58,6 @@ public class AppointmentsController implements Initializable {
 
     public ObservableList<Appointment> monthlyAppointment = FXCollections.observableArrayList();
     public ObservableList<Appointment> weeklyAppointment = FXCollections.observableArrayList();
-    public ObservableList <Appointment> testAppointment = FXCollections.observableArrayList();
     public ObservableList <Month> monthList = FXCollections.observableArrayList();
     public Button addMonth;
     public Button updateMonth;
@@ -67,21 +66,12 @@ public class AppointmentsController implements Initializable {
     public Button updateWeek;
     public Button deleteWeek;
     public DialogPane appDialog;
-    public TableView <Appointment> testTable;
-    public TableColumn <Appointment, Integer> testId;
-    public TableColumn <Appointment, String> testTitle;
-    public TableColumn <Appointment, String> testDescription;
-    public TableColumn <Appointment, String>testLocation;
-    public TableColumn <Appointment, String> testContact;
-    public TableColumn <Appointment, String> testType;
-    public TableColumn <Appointment, LocalDateTime> testStart;
-    public TableColumn <Appointment, LocalDateTime> testEnd;
-    public TableColumn <Appointment, Integer> testCustomer;
-    public TableColumn <Appointment, Integer> testUser;
     public Button appHome;
     public ComboBox <Month> reportMonth;
     public ComboBox <String> reportType;
     public Button generateReport;
+    public ObservableList <Month> reportMonths = FXCollections.observableArrayList();
+    public ObservableList <String> typeList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -116,12 +106,19 @@ public class AppointmentsController implements Initializable {
         appMonth.refresh();
         appWeek.refresh();
 
+
         for(Appointment appointment : AppointmentDAO.getAppointments()){
-            reportMonth.setValue(appointment.getStartTime().getMonth());
+            if(!reportMonths.contains(appointment.getStartTime().getMonth())){
+                reportMonths.add(appointment.getStartTime().getMonth());
+            }
+            reportMonth.setItems(reportMonths);
         }
 
         for(Appointment type : AppointmentDAO.getAppointments()){
-            reportType.setValue(type.getType());
+            if(!typeList.contains(type.getType())){
+                typeList.add(type.getType());
+            }
+            reportType.setItems(typeList);
         }
     }
 
@@ -249,17 +246,20 @@ public class AppointmentsController implements Initializable {
         Month getMonth = reportMonth.getSelectionModel().getSelectedItem();
         if(getMonth == null){
             appDialog.setContentText("Please choose a month");
+            return;
         }
-        String getType = reportType.getSelectionModel().getSelectedItem();
-        if(getType.isBlank()){
+        String chooseType = reportType.getSelectionModel().getSelectedItem();
+        if(chooseType == null){
             appDialog.setContentText("Please choose a type");
+            return;
         }
+
         int numAppointments = 0;
         for(Appointment appointment : AppointmentDAO.getAppointments()){
-            if(appointment.getStartTime().getMonth().equals(getMonth) && appointment.getType().equalsIgnoreCase(getType)){
-                numAppointments = numAppointments++;
+            if(appointment.getStartTime().getMonth().equals(getMonth) && appointment.getType().equalsIgnoreCase(chooseType)){
+                numAppointments = numAppointments + 1;
             }
-            appDialog.setContentText("There are " + numAppointments + " " + getType + " appointments in " + getMonth);
+            appDialog.setContentText("There are " + numAppointments + " " + chooseType + " appointments in " + getMonth);
         }
     }
 }

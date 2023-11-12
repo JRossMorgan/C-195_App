@@ -43,6 +43,7 @@ public class ContactsController implements Initializable {
                 StringBuilder report = new StringBuilder();
                 for(Appointment appointment : AppointmentDAO.getAppointments()){
                     if(appointment.getContact().equals(current.getContactName())){
+                        report.append("-");
                         report.append(appointment.getAppointmentId());
                         report.append(" ");
                         report.append(appointment.getTitle());
@@ -56,7 +57,7 @@ public class ContactsController implements Initializable {
                         report.append(appointment.getEndTime());
                         report.append(" ");
                         report.append(appointment.getCustomerId());
-                        report.append("%n");
+                        report.append("\n");
                     }
                     contactDialog.setContentText(report.toString());
                 }
