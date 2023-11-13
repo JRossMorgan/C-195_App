@@ -1,5 +1,13 @@
 package controller;
 
+/**
+ * ContactsController class ContactsController.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import DAO.AppointmentDAO;
 import DAO.ContactsDAO;
 import javafx.event.ActionEvent;
@@ -37,7 +45,8 @@ public class ContactsController implements Initializable {
         contactEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
 
         contactDialog.setContentText("Please Select a Contact to see Schedule");
-        //Use lambda to generate the report from the table
+        /**
+         @return lambda expression for generating the schedule report */
         contactsTable.getSelectionModel().selectedItemProperty().addListener((obs, previous, current) -> {
             if(current != null){
                 StringBuilder report = new StringBuilder();
@@ -66,6 +75,8 @@ public class ContactsController implements Initializable {
     }
 
 
+    /**
+     @Param actionEvent the event handler for navigating home */
     public void onHome(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Main_Page.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();

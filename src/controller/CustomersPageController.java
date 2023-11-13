@@ -1,5 +1,13 @@
 package controller;
 
+/**
+ * CustomersPageController class CustomersPageController.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import DAO.AppointmentDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -51,6 +59,8 @@ public class CustomersPageController implements Initializable {
         custDivision.setCellValueFactory(new PropertyValueFactory<>("division"));
         custCountry.setCellValueFactory(new PropertyValueFactory<>("country"));
 
+        /**
+         @return predicate interface that uses a lambda to create an object for the alert */
         Predicate<LocalDate> anniversary = (s) -> s.isEqual(LocalDate.now());
 
         boolean anniversaryToday = false;
