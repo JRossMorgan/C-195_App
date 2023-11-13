@@ -1,5 +1,13 @@
 package controller;
 
+/**
+ * AddAppointmentController class AddAppointmentController.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import DAO.AppointmentDAO;
 import DAO.ContactsDAO;
 import DAO.CustomersDAO;
@@ -45,6 +53,8 @@ public class AddAppointmentController implements Initializable {
         addUser.setItems(UsersDAO.getAllUsers());
     }
 
+    /**
+     @Param actionEvent the event handler for saving */
     public void onAddSave(ActionEvent actionEvent) throws IOException{
 
         String title = addTitle.getText();
@@ -72,23 +82,33 @@ public class AddAppointmentController implements Initializable {
         }
 
         int customerID = 0;
-        Customers CU = addCustomer.getSelectionModel().getSelectedItem();
-        if(CU == null){
-            addAppDialog.setContentText("Please Select a Customer");
-            return;
+        try{
+            Customers CU = addCustomer.getSelectionModel().getSelectedItem();
+            if(CU == null){
+                addAppDialog.setContentText("Please Select a Customer");
+                return;
+            }
+            else{
+                customerID = CU.getCustomerId();
+            }
         }
-        else{
-            customerID = CU.getCustomerId();
+        catch(NumberFormatException e){
+           addAppDialog.setContentText("Error");
         }
 
         int userId = 0;
-        Users US = addUser.getSelectionModel().getSelectedItem();
-        if(US == null){
-            addAppDialog.setContentText("Please Select a User");
-            return;
+        try{
+            Users US = addUser.getSelectionModel().getSelectedItem();
+            if(US == null){
+                addAppDialog.setContentText("Please Select a User");
+                return;
+            }
+            else{
+                userId = US.getUserId();
+            }
         }
-        else{
-            userId = US.getUserId();
+        catch (NumberFormatException e){
+            addAppDialog.setContentText("Error");
         }
 
         String contact;
@@ -138,33 +158,6 @@ public class AddAppointmentController implements Initializable {
             return;
         }
 
-        /*ZonedDateTime appointmentStart = ZonedDateTime.of(appDate, SP, ZoneId.systemDefault());
-        ZonedDateTime appointmentEnd = ZonedDateTime.of(appDate, EZ, ZoneId.systemDefault());
-
-        ZonedDateTime open = ZonedDateTime.of(appDate, LocalTime.of(8, 0), ZoneId.of("America/New_York"));
-        ZonedDateTime close = ZonedDateTime.of(appDate, LocalTime.of(22, 0), ZoneId.of("America/New_York"));
-
-        ZonedDateTime zonedOpen = open.withZoneSameInstant(ZoneId.systemDefault());
-        ZonedDateTime zonedClose = close.withZoneSameInstant(ZoneId.systemDefault());
-
-        LocalDateTime startTime;
-        if(appointmentStart.isBefore(zonedOpen) || appointmentStart.isAfter(zonedClose)){
-            addAppDialog.setContentText("Please Choose a Start Time Between 8 AM and 10 PM EST");
-            return;
-        }
-        else{
-            startTime = appointmentStart.toLocalDateTime();
-        }
-
-        LocalDateTime endTime;
-        if(appointmentEnd.isBefore(zonedOpen) || appointmentEnd.isAfter(zonedClose)){
-            addAppDialog.setContentText("Please Choose an End Time Between 8 AM and 10 PM EST");
-            return;
-        }
-        else{
-            endTime = appointmentEnd.toLocalDateTime();
-        }*/
-
         for(Appointment eA : AppointmentDAO.getAppointments()){
             if(customerID == eA.getCustomerId()){
                 if((appointmentStart.isBefore(eA.getStartTime()) || appointmentStart.isEqual(eA.getStartTime())) && appointmentEnd.isAfter(eA.getStartTime())){
@@ -179,19 +172,19 @@ public class AddAppointmentController implements Initializable {
                     addAppDialog.setContentText("This Customer Already has an appointment scheduled for this time. Please choose a different time.");
                     return;
                 }
-                else{
-                    AppointmentDAO.insertAppointment(title, description, location, type, Timestamp.valueOf(appointmentStart), Timestamp.valueOf(appointmentEnd), customerID, userId, contactId);
-
-                    Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
-                    Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-                    Scene scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.show();
-                }
             }
         }
+        AppointmentDAO.insertAppointment(title, description, location, type, Timestamp.valueOf(appointmentStart), Timestamp.valueOf(appointmentEnd), customerID, userId, contactId);
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
+    /**
+     @Param actionEvent the event handler for cancelling */
     public void onAddCancel(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -200,6 +193,8 @@ public class AddAppointmentController implements Initializable {
         stage.show();
     }
 
+    /**
+     @Param actionEvent the event handler for setting the time selection combo boxes */
     public void onSelect(ActionEvent actionEvent) {
         ZonedDateTime s = ZonedDateTime.of(addDate.getValue(), LocalTime.of(8, 0), ZoneId.of("America/New_York"));
         ZonedDateTime e = ZonedDateTime.of(addDate.getValue(), LocalTime.of(21, 30), ZoneId.of("America/New_York"));

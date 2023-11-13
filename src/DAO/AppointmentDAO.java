@@ -52,7 +52,7 @@ public class AppointmentDAO {
             ps.setInt(7, customerId);
             ps.setInt(8, userId);
             ps.setInt(9, contactId);
-            ps.execute();
+            ps.executeUpdate();
 
         }
         catch(SQLException throwables){

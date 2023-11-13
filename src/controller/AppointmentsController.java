@@ -1,5 +1,13 @@
 package controller;
 
+/**
+ * AppointmentsController class AppointmentsController.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import DAO.AppointmentDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -122,6 +130,8 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     @Param actionEvent the event handler for setting the month table */
     public void onChooseMonth(ActionEvent actionEvent) {
         monthlyAppointment.clear();
         Month SP = monthBox.getSelectionModel().getSelectedItem();
@@ -137,6 +147,8 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     @Param actionEvent the event handler for setting the week week table */
     public void onChooseWeek(ActionEvent actionEvent) {
         weeklyAppointment.clear();
         LocalDate SP = chooseWeek.getValue();
@@ -154,6 +166,8 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     @Param actionEvent the event handler for navigating to the Add Appointment page from the month tab */
     public void onAddMonth(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/AddAppointment.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -162,6 +176,8 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
+    /**
+     @Param actionEvent the event handler for navigating to the update appointment page from the month tab */
     public void onUpdateMonth(ActionEvent actionEvent) throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/UpdateAppointment.fxml"));
@@ -175,6 +191,8 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
+    /**
+     @Param actionEvent the event handler for deleting an appointment from the month tab */
     public void onDeleteMonth(ActionEvent actionEvent) {
         Appointment SP = (Appointment) appMonth.getSelectionModel().getSelectedItem();
         if(SP == null){
@@ -194,6 +212,8 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+/**
+ @Param actionEvent the event handler for navigating to the add appointment page from the week tab */
     public void onAddWeek(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/view/AddAppointment.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -202,6 +222,8 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
+    /**
+     @Param actionEvent the event handler for navigating to the update appointment page from the week tab */
     public void onUpdateWeek(ActionEvent actionEvent) throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/UpdateAppointment.fxml"));
@@ -215,6 +237,8 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
+    /**
+     @Param actionEvent the event handler for deleting an appointment from the week tab */
     public void onDeleteWeek(ActionEvent actionEvent) {
         Appointment SP = (Appointment) appWeek.getSelectionModel().getSelectedItem();
         if(SP == null){
@@ -234,6 +258,8 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /**
+     @Param actionEvent the event handler for navigating to the home page */
     public void onHome(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/view/Main_Page.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -242,6 +268,8 @@ public class AppointmentsController implements Initializable {
         stage.show();
     }
 
+    /**
+     @Param actionEvent the event handler for generating a report on appointment types by month */
     public void onGenerate(ActionEvent actionEvent) {
         Month getMonth = reportMonth.getSelectionModel().getSelectedItem();
         if(getMonth == null){
