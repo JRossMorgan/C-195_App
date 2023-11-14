@@ -1,5 +1,13 @@
 package controller;
 
+/**
+ * LogIn class LogIn.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,6 +43,8 @@ public class LogIn implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        /**
+         @return method that sets the labels for French language settings */
         if(Locale.getDefault().getLanguage().equals("fr")){
             logInDialog.setContentText("Votre Emplacment: " + country);
             logIn.setText("Se Connecter");
@@ -49,6 +59,8 @@ public class LogIn implements Initializable {
 
     }
 
+    /**
+     @param actionEvent the event handler that authenticates log-in credentials and navigates to the main page */
     public void onLogIn(ActionEvent actionEvent) throws IOException {
         String userName = userNameTF.getText();
         if(userName.isBlank()){
@@ -77,6 +89,8 @@ public class LogIn implements Initializable {
 
         boolean logIn = false;
 
+        /**
+         @return method that checks credentials and appends the log-in activity file */
         for(Users user : UsersDAO.getAllUsers()){
             //System.out.println(user.getUserName() + " " + user.getPassword());
             if(user.getUserName().equals(userName) && user.getPassword().equals(password)){

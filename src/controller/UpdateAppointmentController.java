@@ -1,5 +1,13 @@
 package controller;
 
+/**
+ * UpdateAppointmentController class UpdateAppointmentController.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import DAO.AppointmentDAO;
 import DAO.ContactsDAO;
 import DAO.CustomersDAO;
@@ -40,6 +48,8 @@ public class UpdateAppointmentController implements Initializable {
     public Button updateCancel;
     public DialogPane updateDialog;
 
+    /**
+     @param appointmentToUpdate sets appointment from the appointment page */
     public void updateAppointment(Appointment appointmentToUpdate){
         updateId.setText(String.valueOf(appointmentToUpdate.getAppointmentId()));
         updateTitle.setText(appointmentToUpdate.getTitle());
@@ -74,6 +84,8 @@ public class UpdateAppointmentController implements Initializable {
 
     }
 
+    /**
+     @param actionEvent the event handler that saves changes and navigates back to the appointment page */
     public void onUpdateSave(ActionEvent actionEvent) throws IOException{
         int updatedId = 0;
         try{
@@ -163,44 +175,6 @@ public class UpdateAppointmentController implements Initializable {
             return;
         }
 
-        /*ZonedDateTime appointmentStart = ZonedDateTime.of(date, SP, ZoneId.systemDefault());
-        ZonedDateTime appointmentEnd = ZonedDateTime.of(date, EZ,ZoneId.systemDefault());
-
-        ZonedDateTime open = ZonedDateTime.of(date, LocalTime.of(8, 0), ZoneId.of("America/New_York"));
-        ZonedDateTime close = ZonedDateTime.of(date, LocalTime.of(22, 0), ZoneId.of("America/New_York"));
-
-        ZonedDateTime zonedOpen = open.withZoneSameInstant(ZoneId.systemDefault());
-        ZonedDateTime zonedClose = close.withZoneSameInstant(ZoneId.systemDefault());
-
-        LocalDateTime startTime;
-
-        try{
-            if(appointmentStart.isBefore(zonedOpen) || appointmentStart.isAfter(zonedClose)){
-                updateDialog.setContentText("Please Choose a Start Time Between 8 AM and 10 PM EST");
-                return;
-            }
-            else{
-                startTime = appointmentStart.toLocalDateTime();
-            }
-        }
-        catch(NullPointerException e){
-            return;
-        }
-
-        LocalDateTime endTime;
-        try{
-            if(appointmentEnd.isBefore(zonedOpen) || appointmentEnd.isAfter(zonedClose)){
-                updateDialog.setContentText("Please Choose an End Time Between 8 AM and 10 PM EST");
-                return;
-            }
-            else{
-                endTime = appointmentEnd.toLocalDateTime();
-            }
-        }
-        catch(NullPointerException e){
-            return;
-        }*/
-
         LocalDateTime appointmentStart = LocalDateTime.of(updateDate.getValue(), SP);
         LocalDateTime appointmentEnd = LocalDateTime.of(updateDate.getValue(), EZ);
 
@@ -242,6 +216,8 @@ public class UpdateAppointmentController implements Initializable {
         stage.show();
     }
 
+    /**
+     @param actionEvent the event handler that navigates back to the appointment page without saving */
     public void onUpdateCancel(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -250,6 +226,8 @@ public class UpdateAppointmentController implements Initializable {
         stage.show();
     }
 
+    /**
+     @param actionEvent the event handler that sets the time choice combo boxes */
     public void onSelect(ActionEvent actionEvent) {
         ZonedDateTime s = ZonedDateTime.of(updateDate.getValue(), LocalTime.of(8, 0), ZoneId.of("America/New_York"));
         ZonedDateTime e = ZonedDateTime.of(updateDate.getValue(), LocalTime.of(21, 30), ZoneId.of("America/New_York"));

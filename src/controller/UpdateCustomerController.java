@@ -1,5 +1,13 @@
 package controller;
 
+/**
+ * UpdateCustomerController class UpdateCustomerController.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import DAO.CountryDAO;
 import DAO.CustomersDAO;
 import DAO.DivisionsDAO;
@@ -40,6 +48,8 @@ public class UpdateCustomerController implements Initializable {
 
     public ObservableList<Divisions> updatableDivisions = FXCollections.observableArrayList();
 
+    /**
+     @param actionEvent sets the division from the country combo box */
     public void onSelect(ActionEvent actionEvent) {
         updatableDivisions.clear();
         Country SP = (Country) updateCountry.getSelectionModel().getSelectedItem();
@@ -55,6 +65,8 @@ public class UpdateCustomerController implements Initializable {
         }
     }
 
+    /**
+     @param actionEvent the event handler that saves changes and navigates back to the customers page */
     public void onUpdate(ActionEvent actionEvent) throws IOException{
         int id = Integer.parseInt(updateID.getText());
         String name = updateName.getText();
@@ -96,6 +108,8 @@ public class UpdateCustomerController implements Initializable {
 
     }
 
+    /**
+     @param actionEvent the event handler that navigates back to the customers page without saving */
     public void onUpdateCancel(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/CustomersPage.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -103,6 +117,9 @@ public class UpdateCustomerController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    /**
+     @param customerToUpdate sets customer from the customers page */
     public void updateCustomer(Customers customerToUpdate){
         updateID.setText(String.valueOf(customerToUpdate.getCustomerId()));
         updateName.setText(customerToUpdate.getName());

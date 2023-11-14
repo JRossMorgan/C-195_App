@@ -1,5 +1,13 @@
 package DAO;
 
+/**
+ * CountryDAO class CountryDAO.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import DBConnection.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +18,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CountryDAO {
+
+    /**
+     @return queries the database and returns countries in a list */
     public static ObservableList<Country> getCountries(){
         ObservableList<Country> allCountries = FXCollections.observableArrayList();
         String sql = "SELECT Country_ID, Country FROM countries";

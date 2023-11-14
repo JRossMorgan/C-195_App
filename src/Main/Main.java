@@ -1,5 +1,13 @@
 package Main;
 
+/**
+ * Main class Main.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import DBConnection.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +17,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     @Override
+    /**
+     @param start launches the gui */
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Log_in.fxml"));
         stage.setTitle("Customer Relations Manager 2000");
@@ -17,6 +27,8 @@ public class Main extends Application {
 
 
     }
+    /**
+     @param args opens and closes the database connection and launches the application */
     public static void main(String[] args){
         JDBC.openConnection();
         launch(args);

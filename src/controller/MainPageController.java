@@ -1,5 +1,13 @@
 package controller;
 
+/**
+ * MainPageController class MainPageController.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import DAO.AppointmentDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,6 +39,8 @@ public class MainPageController implements Initializable {
     public DialogPane mainDialog;
     public Button contact;
 
+    /**
+     @param userToSet sets user from the log-in page */
     public void setUser (Users userToSet){
         int loggedInUser = userToSet.getUserId();
 
@@ -40,6 +50,8 @@ public class MainPageController implements Initializable {
             }
         }
 
+        /**
+         @return method for alerting the user of an upcoming appointment */
         LocalDateTime logInTime = LocalDateTime.now();
         long timeDifference;
         boolean appointmentAlert = false;
@@ -59,6 +71,8 @@ public class MainPageController implements Initializable {
         }
     }
 
+    /**
+     @param actionEvent the event handler that navigates to the customer page */
     public void goToCustomers(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/CustomersPage.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -74,6 +88,8 @@ public class MainPageController implements Initializable {
 
     }
 
+    /**
+     @param actionEvent the event handler that navigates to the appointment page */
     public void onApp(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -82,6 +98,8 @@ public class MainPageController implements Initializable {
         stage.show();
     }
 
+    /**
+     @param actionEvent the event handler that navigates to the contacts page */
     public void onContact(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/view/Contacts.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();

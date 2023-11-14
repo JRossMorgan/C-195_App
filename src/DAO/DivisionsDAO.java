@@ -1,5 +1,12 @@
 package DAO;
 
+/**
+ * DivisionsDAO class DivisionsDAO.java
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import DBConnection.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +17,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DivisionsDAO {
+
+    /**
+     @return queries the database and returns divisions in a list */
     public static ObservableList<Divisions> getDivisions(){
         ObservableList<Divisions> allDivisions = FXCollections.observableArrayList();
         String sql = "SELECT Division_ID, Division, Country_ID FROM first_level_divisions";

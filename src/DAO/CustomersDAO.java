@@ -1,5 +1,13 @@
 package DAO;
 
+/**
+ * CustomersDAO class CustomersDAO.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import DBConnection.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +21,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 public class CustomersDAO {
+
+    /**
+     @return queries the database and returns customers in a list */
     public static ObservableList<Customers> getAllCustomers(){
         ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
         String sql = "select Customer_ID, Customer_Name, Address, Postal_Code, Phone, customers.Create_Date, Division, Country from customers, first_level_divisions, countries WHERE customers.Division_ID = first_level_divisions.Division_ID AND first_level_divisions.Country_ID = countries.Country_ID";
@@ -38,6 +49,9 @@ public class CustomersDAO {
         }
         return allCustomers;
     }
+
+    /**
+     @return inserts a new customer into the database */
     public static void insertCustomer(String custName, String address, String postalCode, String phone, Timestamp timestamp, int divisionId){
         String sql = "insert into customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Division_ID) values (?, ?, ?, ?, ?, ?)";
         try{
@@ -56,6 +70,8 @@ public class CustomersDAO {
         }
     }
 
+    /**
+     @return updates an existing customer in the database */
     public static void updateCustomer(int customerId, String custName, String address, String postalCode, String phone, Timestamp created, int divisionId){
         String sql ="update customers set Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Update = ?, Division_ID = ? where Customer_ID = ?";
         try{

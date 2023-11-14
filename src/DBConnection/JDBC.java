@@ -1,5 +1,13 @@
 package DBConnection;
 
+/**
+ * JDBC class JDBC.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -14,6 +22,8 @@ public abstract class JDBC {
     private static String password = "Passw0rd!"; // Password
     public static Connection connection;  // Connection Interface
 
+    /**
+     @paran openConnection opens the connection to the database */
     public static void openConnection()
     {
         try {
@@ -27,10 +37,14 @@ public abstract class JDBC {
         }
     }
 
+    /**
+     @paran getConnection gets the connection to the database */
     public static Connection getConnection(){
         return connection;
     }
 
+    /**
+     @paran closeConnection closes the connection to the database */
     public static void closeConnection() {
         try {
             connection.close();

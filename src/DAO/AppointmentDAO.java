@@ -1,5 +1,13 @@
 package DAO;
 
+/**
+ * AppointmentDAO class AppointmentDAO.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import DBConnection.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +20,8 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class AppointmentDAO {
+    /**
+     @return queries the database and returns appointments in a list */
     public static ObservableList<Appointment> getAppointments() {
         ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
         String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Contact_Name, Start, End, Customer_ID, User_ID, appointments.Contact_ID FROM appointments, contacts WHERE appointments.Contact_ID = contacts.Contact_ID";
@@ -39,6 +49,9 @@ public class AppointmentDAO {
         }
         return allAppointments;
     }
+
+    /**
+     @return inserts a new appointment into the database */
     public static void insertAppointment(String title, String description, String location, String type, Timestamp start, Timestamp end, int customerId, int userId, int contactId){
         String sql = "insert into appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try{
@@ -60,6 +73,9 @@ public class AppointmentDAO {
         }
 
     }
+
+    /**
+     @return updates an existing appointment in the database */
     public static void updateAppointment(int id, String title, String description, String location, String type, Timestamp startTime, Timestamp endTime, int customerId, int userId, int contactId){
         String sql = "update appointments set Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? where Appointment_ID = ?";
         try{

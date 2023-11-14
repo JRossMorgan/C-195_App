@@ -1,12 +1,12 @@
 package model;
 
-import DBConnection.JDBC;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+/**
+ * Users class Users.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
 
 public class Users {
     private int userId;
@@ -18,27 +18,26 @@ public class Users {
         this.userName = userName;
         this.password = password;
     }
+
+    /**
+     @return returns the user Id */
     public int getUserId(){return userId;}
 
+    /**
+     @return returns the user name */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     @return returns the division Id */
     public String getPassword() {
         return password;
     }
 
-    public void setUserId(int userId){this.userId = userId;}
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
+    /**
+     @return overrides the toString method and returns the user Id as a string */
     public String toString(){
         return String.valueOf(userId);
     }

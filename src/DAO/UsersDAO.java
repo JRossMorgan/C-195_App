@@ -1,5 +1,13 @@
 package DAO;
 
+/**
+ * UsersDAO class UsersDAO.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import DBConnection.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +18,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UsersDAO {
+
+    /**
+     @return queries the database and returns users in a list */
     public static ObservableList<Users> getAllUsers() {
         ObservableList<Users> allUsers = FXCollections.observableArrayList();
         String sql = "SELECT User_ID, User_Name, Password FROM users";

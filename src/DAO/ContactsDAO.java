@@ -1,5 +1,13 @@
 package DAO;
 
+/**
+ * ContactsDAO class ContactsDAO.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import DBConnection.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +18,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ContactsDAO {
+
+    /**
+     queries the database and returns a list of contacts */
     public static ObservableList<Contacts> getAllContacts(){
         ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
         String sql = "SELECT Contact_ID, Contact_Name, Email FROM contacts";

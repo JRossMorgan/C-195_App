@@ -1,7 +1,13 @@
 package model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+/**
+ * Customers class Customers.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 
 import java.time.LocalDateTime;
 
@@ -26,43 +32,55 @@ public class Customers {
         this.country = country;
     }
 
-
+    /**
+     @return returns the customer Id */
     public int getCustomerId() {
         return customerId;
     }
 
+    /**
+     @return returns the customer name */
     public String getName() {
         return name;
     }
 
+    /**
+     @return returns the customer address */
     public String getAddress() {
         return address;
     }
 
+    /**
+     @return returns the customer postal code */
     public String getPostalCode() {
         return postalCode;
     }
 
+    /**
+     @return returns the customer phone */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     @return returns the create date */
     public LocalDateTime getCreateDate() {return createDate;}
 
+    /**
+     @return returns the customer division */
     public String getDivision() {
         return division;
     }
+
+    /**
+     @return returns the customer country */
     public String getCountry(){
         return country;
     }
-    /*ObservableList<Appointment> customerAppointments(){
-        ObservableList<Appointment> getCustomerAppointments = FXCollections.observableArrayList();
-        if(Customers.getCustomerId() == Appointment.getCustomerId()){
 
-        }
-        return getCustomerAppointments;
-    }*/
     @Override
+    /**
+     @return overrides the toString method and returns the customer Id as a string */
     public String toString(){
         return String.valueOf(customerId);
     }

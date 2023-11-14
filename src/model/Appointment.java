@@ -1,5 +1,13 @@
 package model;
 
+/**
+ * Appointment class Appointment.java
+ */
+/**
+ *
+ * @author Jedediah R Morgan
+ */
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -32,38 +40,58 @@ public class Appointment {
         this.contactId = contactId;
     }
 
+    /**
+     @return returns the appointment Id */
     public int getAppointmentId() {
         return appointmentId;
     }
 
+    /**
+     @return returns the title */
     public String getTitle() {
         return title;
     }
 
+    /**
+     @return returns the description */
     public String getDescription() {
         return description;
     }
 
+    /**
+     @return returns the location */
     public String getLocation() {
         return location;
     }
 
+    /**
+     @return returns the type */
     public String getType() {
         return type;
     }
 
+    /**
+     @return returns the contact */
     public String getContact() {
         return contact;
     }
 
+    /**
+     @return returns the start time */
     public LocalDateTime getStartTime() {
         return startTime;
     }
 
+    /**
+     @return returns the end time */
     public LocalDateTime getEndTime() {return endTime;}
 
+    /**
+     @return returns the customer Id */
     public int getCustomerId() {return customerId; }
 
+    /**
+     @return returns the user Id */
     public int getUserId() {
         return userId;
     }
