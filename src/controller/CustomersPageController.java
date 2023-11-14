@@ -9,6 +9,7 @@ package controller;
  */
 
 import DAO.AppointmentDAO;
+import DAO.CustomersDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,13 +20,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
 import model.Customers;
-import DAO.CustomersDAO;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;

@@ -29,7 +29,6 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.time.*;
 import java.util.ResourceBundle;
-import java.util.TimeZone;
 
 public class AddAppointmentController implements Initializable {
     public TextField addTitle;

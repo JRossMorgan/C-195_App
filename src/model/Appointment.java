@@ -8,10 +8,7 @@ package model;
  * @author Jedediah R Morgan
  */
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
 public class Appointment {
     private int appointmentId;

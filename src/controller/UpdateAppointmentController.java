@@ -28,9 +28,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.*;
-import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.TimeZone;
 
 public class UpdateAppointmentController implements Initializable {
     public TextField updateTitle;
