@@ -20,7 +20,7 @@ import java.sql.SQLException;
 public class ContactsDAO {
 
     /**
-     queries the database and returns a list of contacts */
+     @return queries the database and returns a list of contacts */
     public static ObservableList<Contacts> getAllContacts(){
         ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
         String sql = "SELECT Contact_ID, Contact_Name, Email FROM contacts";

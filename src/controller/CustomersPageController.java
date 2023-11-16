@@ -77,7 +77,8 @@ public class CustomersPageController implements Initializable {
     }
 
     /**
-     @param actionEvent the event handler that navigates to the Customer Update page */
+     @param actionEvent the event handler that navigates to the Customer Update page.
+    * @throws IOException throws an exception*/
     public void onMod(ActionEvent actionEvent) throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/UpdateCustomer.fxml"));
@@ -121,7 +122,8 @@ public class CustomersPageController implements Initializable {
     }
 
     /**
-     @param actionEvent the event handler that navigates to the Add Customer page */
+     @param actionEvent the event handler that navigates to the Add Customer page.
+    * @throws IOException throws an exception*/
     public void onAdd(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/AddCustomer.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -131,7 +133,8 @@ public class CustomersPageController implements Initializable {
     }
 
     /**
-     @param actionEvent the event handler that navigates to the Home page */
+     @param actionEvent the event handler that navigates to the Home page.
+    * @throws IOException throws an exception*/
     public void onHome(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/view/Main_Page.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();

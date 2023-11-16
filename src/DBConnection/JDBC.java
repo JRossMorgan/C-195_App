@@ -23,7 +23,7 @@ public abstract class JDBC {
     public static Connection connection;  // Connection Interface
 
     /**
-     @paran openConnection opens the connection to the database */
+     method to open connection */
     public static void openConnection()
     {
         try {
@@ -38,13 +38,13 @@ public abstract class JDBC {
     }
 
     /**
-     @paran getConnection gets the connection to the database */
+     @return gets the connection to the database */
     public static Connection getConnection(){
         return connection;
     }
 
     /**
-     @paran closeConnection closes the connection to the database */
+     method to close connection to the database */
     public static void closeConnection() {
         try {
             connection.close();

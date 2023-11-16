@@ -66,7 +66,8 @@ public class UpdateCustomerController implements Initializable {
     }
 
     /**
-     @param actionEvent the event handler that saves changes and navigates back to the customers page */
+     @param actionEvent the event handler that saves changes and navigates back to the customers page.
+    * @throws IOException throws an exception*/
     public void onUpdate(ActionEvent actionEvent) throws IOException{
         int id = Integer.parseInt(updateID.getText());
         String name = updateName.getText();
@@ -109,7 +110,8 @@ public class UpdateCustomerController implements Initializable {
     }
 
     /**
-     @param actionEvent the event handler that navigates back to the customers page without saving */
+     @param actionEvent the event handler that navigates back to the customers page without saving.
+    * @throws IOException throws an exception*/
     public void onUpdateCancel(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/CustomersPage.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();

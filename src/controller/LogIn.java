@@ -60,7 +60,8 @@ public class LogIn implements Initializable {
     }
 
     /**
-     @param actionEvent the event handler that authenticates log-in credentials and navigates to the main page */
+     @param actionEvent the event handler that authenticates log-in credentials and navigates to the main page.
+    * @throws IOException throws an exception*/
     public void onLogIn(ActionEvent actionEvent) throws IOException {
         String userName = userNameTF.getText();
         if(userName.isBlank()){

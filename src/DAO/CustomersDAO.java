@@ -51,7 +51,13 @@ public class CustomersDAO {
     }
 
     /**
-     @return inserts a new customer into the database */
+     @param custName inserts customer name
+     @param address inserts customer address
+     @param postalCode inserts customer postal code
+     @param phone inserts customer phone number
+     @param timestamp inserts customer create date
+     @param divisionId inserts customer division Id. */
+
     public static void insertCustomer(String custName, String address, String postalCode, String phone, Timestamp timestamp, int divisionId){
         String sql = "insert into customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Division_ID) values (?, ?, ?, ?, ?, ?)";
         try{
@@ -71,7 +77,13 @@ public class CustomersDAO {
     }
 
     /**
-     @return updates an existing customer in the database */
+     * @param customerId updates customer Id
+    @param custName updates customer name
+    @param address updates customer address
+    @param postalCode upodates customer postal code
+    @param phone updates customer phone number
+    @param created updates customer create date
+    @param divisionId updates customer division Id. */
     public static void updateCustomer(int customerId, String custName, String address, String postalCode, String phone, Timestamp created, int divisionId){
         String sql ="update customers set Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Update = ?, Division_ID = ? where Customer_ID = ?";
         try{

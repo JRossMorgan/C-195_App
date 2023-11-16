@@ -51,7 +51,15 @@ public class AppointmentDAO {
     }
 
     /**
-     @return inserts a new appointment into the database */
+     @param title inserts a new title
+     @param description inserts a new description
+     @param location inserts a new location
+     @param type inserts a new type
+     @param start inserts a new start time
+     @param end inserts a new end time
+     @param customerId inserts a new customer Id
+     @param userId inserts a new user Id
+     @param contactId inserts a new contact Id*/
     public static void insertAppointment(String title, String description, String location, String type, Timestamp start, Timestamp end, int customerId, int userId, int contactId){
         String sql = "insert into appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try{
@@ -75,7 +83,16 @@ public class AppointmentDAO {
     }
 
     /**
-     @return updates an existing appointment in the database */
+     * @param id updates Id
+     @param title updates a new title
+     @param description updates a new description
+     @param location updates a new location
+     @param type updates a new type
+     @param startTime updates a new start time
+     @param endTime updates a new end time
+     @param customerId updates a new customer Id
+     @param userId updates a new user Id
+     @param contactId updates a new contact Id*/
     public static void updateAppointment(int id, String title, String description, String location, String type, Timestamp startTime, Timestamp endTime, int customerId, int userId, int contactId){
         String sql = "update appointments set Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? where Appointment_ID = ?";
         try{

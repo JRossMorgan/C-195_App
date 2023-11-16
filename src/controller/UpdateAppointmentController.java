@@ -83,7 +83,8 @@ public class UpdateAppointmentController implements Initializable {
     }
 
     /**
-     @param actionEvent the event handler that saves changes and navigates back to the appointment page */
+     @param actionEvent the event handler that saves changes and navigates back to the appointment page.
+    * @throws IOException throws an exception*/
     public void onUpdateSave(ActionEvent actionEvent) throws IOException{
         int updatedId = 0;
         try{
@@ -215,7 +216,8 @@ public class UpdateAppointmentController implements Initializable {
     }
 
     /**
-     @param actionEvent the event handler that navigates back to the appointment page without saving */
+     @param actionEvent the event handler that navigates back to the appointment page without saving.
+    * @throws IOException throws an exception*/
     public void onUpdateCancel(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();

@@ -76,7 +76,8 @@ public class ContactsController implements Initializable {
 
 
     /**
-     @Param actionEvent the event handler for navigating home */
+     @param actionEvent the event handler for navigating home.
+    * @throws IOException throws an exception*/
     public void onHome(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Main_Page.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();

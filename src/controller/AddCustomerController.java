@@ -48,7 +48,8 @@ public class AddCustomerController implements Initializable {
 
 
     /**
-     @Param actionEvent the event handler for saving */
+     @param actionEvent the event handler for saving.
+    * @throws IOException throws an exception*/
     public void onAdd(ActionEvent actionEvent) throws IOException{
         String name = addName.getText();
         if(name.isBlank()){
@@ -90,7 +91,8 @@ public class AddCustomerController implements Initializable {
     }
 
     /**
-     @Param actionEvent the event handler for canceling */
+     @param actionEvent the event handler for canceling.
+    * @throws IOException throws an exception*/
     public void onAddCancel(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/CustomersPage.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -106,7 +108,7 @@ public class AddCustomerController implements Initializable {
     }
 
     /**
-     @Param actionEvent the event handler for setting the division combo box */
+     @param actionEvent the event handler for setting the division combo box */
     public void onSelect(ActionEvent actionEvent) {
         countryDivision.clear();
         Country SP = (Country) addCountry.getSelectionModel().getSelectedItem();

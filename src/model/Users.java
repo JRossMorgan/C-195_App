@@ -37,7 +37,7 @@ public class Users {
 
     @Override
     /**
-     @return overrides the toString method and returns the user Id as a string */
+     * @return overrides the toString method and returns the user Id as a string */
     public String toString(){
         return String.valueOf(userId);
     }

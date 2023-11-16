@@ -52,8 +52,8 @@ public class AddAppointmentController implements Initializable {
         addUser.setItems(UsersDAO.getAllUsers());
     }
 
-    /**
-     @Param actionEvent the event handler for saving */
+    /** @param actionEvent method to save the appointment.
+     * @throws IOException navigates to the main page. */
     public void onAddSave(ActionEvent actionEvent) throws IOException{
 
         String title = addTitle.getText();
@@ -182,8 +182,8 @@ public class AddAppointmentController implements Initializable {
         stage.show();
     }
 
-    /**
-     @Param actionEvent the event handler for cancelling */
+    /** @throws IOException throws an exception as it navigates to the main page without saving.
+     * @param actionEvent cancels without saving. */
     public void onAddCancel(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -193,7 +193,7 @@ public class AddAppointmentController implements Initializable {
     }
 
     /**
-     @Param actionEvent the event handler for setting the time selection combo boxes */
+     @param actionEvent the event handler for setting the time selection combo boxes */
     public void onSelect(ActionEvent actionEvent) {
         ZonedDateTime s = ZonedDateTime.of(addDate.getValue(), LocalTime.of(8, 0), ZoneId.of("America/New_York"));
         ZonedDateTime e = ZonedDateTime.of(addDate.getValue(), LocalTime.of(21, 30), ZoneId.of("America/New_York"));

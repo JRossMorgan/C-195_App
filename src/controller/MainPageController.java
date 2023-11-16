@@ -70,7 +70,8 @@ public class MainPageController implements Initializable {
     }
 
     /**
-     @param actionEvent the event handler that navigates to the customer page */
+     @param actionEvent the event handler that navigates to the customer page.
+    * @throws IOException throws an exception*/
     public void goToCustomers(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/CustomersPage.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -87,7 +88,8 @@ public class MainPageController implements Initializable {
     }
 
     /**
-     @param actionEvent the event handler that navigates to the appointment page */
+     @param actionEvent the event handler that navigates to the appointment page.
+    * @throws IOException throws an exception*/
     public void onApp(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -97,7 +99,8 @@ public class MainPageController implements Initializable {
     }
 
     /**
-     @param actionEvent the event handler that navigates to the contacts page */
+     @param actionEvent the event handler that navigates to the contacts page.
+    * @throws IOException throws an exception*/
     public void onContact(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/view/Contacts.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
