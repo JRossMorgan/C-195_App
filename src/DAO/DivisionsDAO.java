@@ -5,6 +5,7 @@ package DAO;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import DBConnection.JDBC;
@@ -16,9 +17,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** class that contains the Divisions database queries. */
 public class DivisionsDAO {
 
-    /**
+    /** Database query method
      @return queries the database and returns divisions in a list */
     public static ObservableList<Divisions> getDivisions(){
         ObservableList<Divisions> allDivisions = FXCollections.observableArrayList();
@@ -35,6 +37,7 @@ public class DivisionsDAO {
                 allDivisions.add(createDivision);
             }
         }
+        /** @throws SQLException throws a SQL exception. */
         catch (SQLException throwables){
             throwables.printStackTrace();
         }

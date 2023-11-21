@@ -6,6 +6,7 @@ package controller;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import DAO.AppointmentDAO;
@@ -30,6 +31,7 @@ import java.sql.Timestamp;
 import java.time.*;
 import java.util.ResourceBundle;
 
+/** Class that controls the Add Appointment FXML page. */
 public class AddAppointmentController implements Initializable {
     public TextField addTitle;
     public TextField addDescription;
@@ -56,30 +58,36 @@ public class AddAppointmentController implements Initializable {
      * @throws IOException navigates to the main page. */
     public void onAddSave(ActionEvent actionEvent) throws IOException{
 
+        /** @return method that gets the title from the field and returns an error message if it's blank. */
         String title = addTitle.getText();
         if(title.isBlank()){
             addAppDialog.setContentText("Please Enter a Title");
             return;
         }
 
+        /** @return method that gets the description from the field and returns an error message if it's blank. */
         String description= addDescription.getText();
         if(description.isBlank()){
             addAppDialog.setContentText("Please Enter a Description");
             return;
         }
 
+        /** @return method that gets the location from the field and returns an error message if it's blank. */
         String location = addLocation.getText();
         if(location.isBlank()){
             addAppDialog.setContentText("Please Enter a Location");
             return;
         }
 
+        /** @return method that gets the type from the field and returns an error message if it's blank. */
         String type =  addType.getText();
         if(type.isBlank()){
             addAppDialog.setContentText("Please Enter a Type");
             return;
         }
 
+        /** @return method that gets the Customer ID from the field and returns an error message if it's blank.
+         * @throws a number format exception. */
         int customerID = 0;
         try{
             Customers CU = addCustomer.getSelectionModel().getSelectedItem();
@@ -95,6 +103,8 @@ public class AddAppointmentController implements Initializable {
            addAppDialog.setContentText("Error");
         }
 
+        /** @return method that gets the User ID from the field and returns an error message if it's blank.
+         * @throws a number format exception. */
         int userId = 0;
         try{
             Users US = addUser.getSelectionModel().getSelectedItem();
@@ -110,6 +120,7 @@ public class AddAppointmentController implements Initializable {
             addAppDialog.setContentText("Error");
         }
 
+        /** @return selects the contact from a combo box. */
         String contact;
         Contacts PQ = (Contacts) addContact.getSelectionModel().getSelectedItem();
         if(PQ == null){
@@ -120,6 +131,7 @@ public class AddAppointmentController implements Initializable {
             contact = PQ.getContactName();
         }
 
+        /** @return gets the contact ID based on the selected contact name. */
         int contactId = 0;
         for(Contacts contacts : ContactsDAO.getAllContacts()){
             if(contacts.getContactName().contentEquals(contact)){
@@ -127,36 +139,43 @@ public class AddAppointmentController implements Initializable {
             }
         }
 
+        /** @return sets the date from the date picker. */
         LocalDate appDate = addDate.getValue();
         if(appDate == null){
             addAppDialog.setContentText("Please Choose a Date");
             return;
         }
 
+        /** @return sets the start time from the combo box of time values. */
         LocalTime SP = addStart.getSelectionModel().getSelectedItem();
         if(SP == null){
             addAppDialog.setContentText("Please Select an Appointment Start Time");
             return;
         }
 
+        /** @return sets the start time from the combo box of time values. */
         LocalTime EZ = addEnd.getSelectionModel().getSelectedItem();
         if(EZ == null){
             addAppDialog.setContentText("Please Select an Appointment end time");
             return;
         }
 
+        /** assembles a LocalDateTime from the date and time. */
         LocalDateTime appointmentStart = LocalDateTime.of(addDate.getValue(), SP);
         LocalDateTime appointmentEnd = LocalDateTime.of(addDate.getValue(), EZ);
 
+        /** @return validates that the start time is before the end time. */
         if(appointmentStart.isAfter(appointmentEnd)){
             addAppDialog.setContentText("Appointment Start time must be before the end time.");
             return;
         }
+        /** @return validates that the end time is after the start time. */
         if(appointmentEnd.isBefore(appointmentStart)){
             addAppDialog.setContentText("Appointment End time must be after the end time.");
             return;
         }
 
+        /** @return checks if the customer has an overlapping appointment. */
         for(Appointment eA : AppointmentDAO.getAppointments()){
             if(customerID == eA.getCustomerId()){
                 if((appointmentStart.isBefore(eA.getStartTime()) || appointmentStart.isEqual(eA.getStartTime())) && appointmentEnd.isAfter(eA.getStartTime())){
@@ -173,6 +192,8 @@ public class AddAppointmentController implements Initializable {
                 }
             }
         }
+        /** calls the insertAppointment method with provided parameters.
+         * @see java.AppointmentDAO */
         AppointmentDAO.insertAppointment(title, description, location, type, Timestamp.valueOf(appointmentStart), Timestamp.valueOf(appointmentEnd), customerID, userId, contactId);
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));

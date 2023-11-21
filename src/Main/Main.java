@@ -6,6 +6,7 @@ package Main;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import DBConnection.JDBC;
@@ -15,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/** class that launches the application. */
 public class Main extends Application {
     @Override
     /**

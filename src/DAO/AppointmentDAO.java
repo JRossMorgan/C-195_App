@@ -6,6 +6,7 @@ package DAO;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import DBConnection.JDBC;
@@ -19,9 +20,10 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/** class that contains the Appointment database queries. */
 public class AppointmentDAO {
-    /**
-     @return queries the database and returns appointments in a list */
+    /** Database query method
+     @return queries the database and returns appointments in a list. */
     public static ObservableList<Appointment> getAppointments() {
         ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
         String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Contact_Name, Start, End, Customer_ID, User_ID, appointments.Contact_ID FROM appointments, contacts WHERE appointments.Contact_ID = contacts.Contact_ID";
@@ -44,13 +46,14 @@ public class AppointmentDAO {
                 allAppointments.add(createAppointment);
 
             }
+            /** @throws SQLException throws a SQL exception.*/
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return allAppointments;
     }
 
-    /**
+    /** insertAppointment method
      @param title inserts a new title
      @param description inserts a new description
      @param location inserts a new location
@@ -76,13 +79,14 @@ public class AppointmentDAO {
             ps.executeUpdate();
 
         }
+        /** @throws SQLException throws a SQL exception.*/
         catch(SQLException throwables){
             throwables.printStackTrace();
         }
 
     }
 
-    /**
+    /** updateAppointment method
      * @param id updates Id
      @param title updates a new title
      @param description updates a new description
@@ -110,11 +114,14 @@ public class AppointmentDAO {
 
             ps.executeUpdate();
         }
+        /** @throws SQLException throws a SQL exception. */
         catch (SQLException throwables){
             throwables.printStackTrace();
         }
     }
 
+    /** deleteAppointment method
+     * @param id method to delete appointments. */
     public static void deleteAppointment(int id){
         String sql = "delete from Appointments where Appointment_ID = ?";
         try{
@@ -122,6 +129,7 @@ public class AppointmentDAO {
             ps.setInt(1, id);
             ps.executeUpdate();
         }
+        /** @throws SQLException throws a SQL exception. */
         catch (SQLException throwables){
             throwables.printStackTrace();
         }

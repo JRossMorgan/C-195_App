@@ -6,6 +6,7 @@ package DAO;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import DBConnection.JDBC;
@@ -17,9 +18,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** class that contains the Country database queries. */
 public class CountryDAO {
 
-    /**
+    /** Database query method
      @return queries the database and returns countries in a list */
     public static ObservableList<Country> getCountries(){
         ObservableList<Country> allCountries = FXCollections.observableArrayList();
@@ -35,6 +37,7 @@ public class CountryDAO {
                 allCountries.add(createCountry);
             }
         }
+        /** @throws SQLException throws a SQL exception.*/
         catch (SQLException throwables){
             throwables.printStackTrace();
         }

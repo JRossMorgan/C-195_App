@@ -6,6 +6,7 @@ package controller;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import DAO.AppointmentDAO;
@@ -29,6 +30,7 @@ import java.time.Month;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/** Class that controls the Appointments FXML page. */
 public class AppointmentsController implements Initializable {
 
     public Tab byMonth;
@@ -77,6 +79,7 @@ public class AppointmentsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        /** @return sets the values in the month list. */
         for(Month month : Month.values()){
             monthList.add(month);
             monthBox.setItems(monthList);
@@ -109,6 +112,7 @@ public class AppointmentsController implements Initializable {
         appWeek.refresh();
 
 
+        /**@return sets unique month values for the report combo box. */
         for(Appointment appointment : AppointmentDAO.getAppointments()){
             if(!reportMonths.contains(appointment.getStartTime().getMonth())){
                 reportMonths.add(appointment.getStartTime().getMonth());
@@ -116,6 +120,7 @@ public class AppointmentsController implements Initializable {
             reportMonth.setItems(reportMonths);
         }
 
+        /**@return sets unique type values for the report combo box. */
         for(Appointment type : AppointmentDAO.getAppointments()){
             if(!typeList.contains(type.getType())){
                 typeList.add(type.getType());

@@ -6,6 +6,7 @@ package controller;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import DAO.CountryDAO;
@@ -34,6 +35,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ResourceBundle;
 
+/** Class that controls the Update Customer FXML page. */
 public class UpdateCustomerController implements Initializable {
     public TextField updateID;
     public TextField updateName;
@@ -69,27 +71,32 @@ public class UpdateCustomerController implements Initializable {
      @param actionEvent the event handler that saves changes and navigates back to the customers page.
     * @throws IOException throws an exception*/
     public void onUpdate(ActionEvent actionEvent) throws IOException{
+        /** @return method that gets the customer ID from the field and returns an error message if it's blank. */
         int id = Integer.parseInt(updateID.getText());
         String name = updateName.getText();
         if(name.isBlank()){
             updateDialog.setContentText("Please Enter A Name");
             return;
         }
+        /** @return method that gets the address from the field and returns an error message if it's blank. */
         String adress = updateAddress.getText();
         if(adress.isBlank()){
             updateDialog.setContentText("Please Enter An Address");
             return;
         }
+        /** @return method that gets the postal code from the field and returns an error message if it's blank. */
         String postal = updatePostal.getText();
         if(postal.isBlank()){
             updateDialog.setContentText("Please Enter A Postal Code");
             return;
         }
+        /** @return method that gets the phone number from the field and returns an error message if it's blank. */
         String phone = updatePhone.getText();
         if (phone.isBlank()){
             updateDialog.setContentText("Please Enter A Phone Number");
             return;
         }
+        /** @return method that gets the division ID from the combo box and returns an error message if it's blank. */
         int division = 0;
         Divisions PQ = (Divisions) updateDivision.getSelectionModel().getSelectedItem();
         if(PQ == null){
@@ -99,6 +106,8 @@ public class UpdateCustomerController implements Initializable {
         else{
             division = PQ.getDivisionId();
         }
+        /** calls the updateCustomer method with provided parameters.
+         * @see java.CustomersDAO */
         CustomersDAO.updateCustomer(id, name, adress, postal, phone, Timestamp.valueOf(LocalDateTime.now(ZoneId.of("GMT"))), division );
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/CustomersPage.fxml"));
@@ -134,6 +143,7 @@ public class UpdateCustomerController implements Initializable {
             }
         }
 
+        /** @return sets the division combo box from the country selected. */
         for(Divisions customerDivision : DivisionsDAO.getDivisions()){
             if(customerDivision.name.equalsIgnoreCase(customerToUpdate.getDivision())){
                 updateDivision.setValue(customerDivision);

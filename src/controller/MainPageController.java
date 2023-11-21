@@ -6,6 +6,7 @@ package controller;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import DAO.AppointmentDAO;
@@ -29,6 +30,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
+/** Class that controls the Main FXML page. */
 public class MainPageController implements Initializable {
     public Button customers;
     public Button appointments;
@@ -51,15 +53,13 @@ public class MainPageController implements Initializable {
         /**
          @return method for alerting the user of an upcoming appointment */
         LocalDateTime logInTime = LocalDateTime.now();
-        long timeDifference;
         boolean appointmentAlert = false;
         for(Appointment timedAppointment : userAppointments){
             if(timedAppointment.getStartTime().isAfter(logInTime) && timedAppointment.getStartTime().isBefore(logInTime.plusMinutes(15))){
                 appointmentAlert = true;
-                timeDifference = ChronoUnit.MINUTES.between(logInTime, timedAppointment.getStartTime());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Upcoming Appointment");
-                alert.setContentText("You have an appointment in " + timeDifference + " minute(s)");
+                alert.setContentText("Appointment ID: " + timedAppointment.getAppointmentId() + " Starting: " + timedAppointment.getStartTime().toLocalDate() + ", " + timedAppointment.getStartTime().toLocalTime());
                 alert.showAndWait();
 
             }

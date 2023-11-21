@@ -6,6 +6,7 @@ package DAO;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import DBConnection.JDBC;
@@ -17,9 +18,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** class that contains the Contacts database queries. */
 public class ContactsDAO {
 
-    /**
+    /** Database query method
      @return queries the database and returns a list of contacts */
     public static ObservableList<Contacts> getAllContacts(){
         ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
@@ -36,6 +38,7 @@ public class ContactsDAO {
             }
         }
 
+        /** @throws SQLException throws a SQL exception. */
         catch (SQLException throwables) {
             throwables.printStackTrace();
         }

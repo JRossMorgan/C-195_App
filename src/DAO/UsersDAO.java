@@ -6,6 +6,7 @@ package DAO;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import DBConnection.JDBC;
@@ -17,9 +18,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** class that contains the Users database queries. */
 public class UsersDAO {
 
-    /**
+    /** Database query method
      @return queries the database and returns users in a list */
     public static ObservableList<Users> getAllUsers() {
         ObservableList<Users> allUsers = FXCollections.observableArrayList();
@@ -35,7 +37,7 @@ public class UsersDAO {
                 allUsers.add(createUser);
             }
         }
-
+            /** @throws SQLException throws a SQL exception. */
             catch (SQLException throwables) {
             throwables.printStackTrace();
         }

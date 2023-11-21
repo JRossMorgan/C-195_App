@@ -6,6 +6,7 @@ package controller;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import DAO.AppointmentDAO;
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/** Class that controls the Contacts FXML page. */
 public class ContactsController implements Initializable {
     public TableView <Contacts> contactsTable;
     public TableColumn <Contacts, Integer> contactId;

@@ -6,6 +6,7 @@ package controller;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import javafx.event.ActionEvent;
@@ -31,6 +32,7 @@ import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/** Class that controls the Log In FXML page. */
 public class LogIn implements Initializable {
     public TextField userNameTF;
     public TextField passwordTF;
@@ -44,9 +46,9 @@ public class LogIn implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         /**
-         @return method that sets the labels for French language settings */
+         @return method that sets the labels based on language settings */
         if(Locale.getDefault().getLanguage().equals("fr")){
-            logInDialog.setContentText("Votre Emplacment: " + country);
+            logInDialog.setContentText("Votre Emplacment: " + ZoneId.systemDefault());
             logIn.setText("Se Connecter");
             headLine.setText("Se Conncter");
             userName.setText("Nom d'utilisateur");
@@ -54,7 +56,7 @@ public class LogIn implements Initializable {
 
         }
         else{
-            logInDialog.setContentText("Your Location: " + country);
+            logInDialog.setContentText("Your Location: " + ZoneId.systemDefault());
         }
 
     }
@@ -63,6 +65,7 @@ public class LogIn implements Initializable {
      @param actionEvent the event handler that authenticates log-in credentials and navigates to the main page.
     * @throws IOException throws an exception*/
     public void onLogIn(ActionEvent actionEvent) throws IOException {
+        /** @return gets user name, returns a message if blank. */
         String userName = userNameTF.getText();
         if(userName.isBlank()){
             if(Locale.getDefault().getLanguage().equals("fr")){
@@ -73,6 +76,7 @@ public class LogIn implements Initializable {
             }
             return;
         }
+        /** @return gets password, returns a message if blank. */
         String password = passwordTF.getText();
         if(password.isBlank()){
             if(Locale.getDefault().getLanguage().equals("fr")){
@@ -83,9 +87,12 @@ public class LogIn implements Initializable {
             }
             return;
         }
+        /** implements a string for the activity log. */
         String loginAttempt = "login_activity.txt", attempt;
 
+        /** creates a new FileWriter with the loginAttempt string. */
         FileWriter file = new FileWriter(loginAttempt, true);
+        /** creates a new PrintWriter with the file PrintWriter. */
         PrintWriter loginReport = new PrintWriter(file);
 
         boolean logIn = false;

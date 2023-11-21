@@ -6,6 +6,7 @@ package DAO;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import DBConnection.JDBC;
@@ -20,9 +21,10 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+/** class that contains the Customers database queries. */
 public class CustomersDAO {
 
-    /**
+    /** Database query method
      @return queries the database and returns customers in a list */
     public static ObservableList<Customers> getAllCustomers(){
         ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
@@ -44,13 +46,14 @@ public class CustomersDAO {
                 allCustomers.add(createCustomer);
             }
         }
+        /** @throws SQLException throws a SQL exception.*/
         catch(SQLException throwables){
             throwables.printStackTrace();
         }
         return allCustomers;
     }
 
-    /**
+    /** insertCustomer method
      @param custName inserts customer name
      @param address inserts customer address
      @param postalCode inserts customer postal code
@@ -71,12 +74,13 @@ public class CustomersDAO {
             ps.executeUpdate();
 
         }
+        /** @throws SQLException throws a SQL exception.*/
         catch (SQLException throwables){
             throwables.printStackTrace();
         }
     }
 
-    /**
+    /** updateCustomer method
      * @param customerId updates customer Id
     @param custName updates customer name
     @param address updates customer address
@@ -97,10 +101,13 @@ public class CustomersDAO {
             ps.setInt(7, customerId);
             ps.executeUpdate();
         }
+        /** @throws SQLException throws a SQL exception.*/
         catch(SQLException throwables){
             throwables.printStackTrace();
         }
     }
+    /** deleteCustomer method
+     * @param custId method to delete a customer. */
     public static void deleteCustomer(int custId){
         String sql = "DELETE FROM customers WHERE Customer_ID = ?";
         try{
@@ -108,6 +115,7 @@ public class CustomersDAO {
             ps.setInt(1, custId);
             ps.executeUpdate();
         }
+        /** @throws SQLException throws a SQL exception.*/
         catch (SQLException throwables){
             throwables.printStackTrace();
         }

@@ -6,6 +6,7 @@ package controller;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import DAO.CountryDAO;
@@ -33,6 +34,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ResourceBundle;
 
+/** Class that controls the Add Customer FXML page. */
 public class AddCustomerController implements Initializable {
     public TextField addName;
     public TextField addAddress;
@@ -51,26 +53,31 @@ public class AddCustomerController implements Initializable {
      @param actionEvent the event handler for saving.
     * @throws IOException throws an exception*/
     public void onAdd(ActionEvent actionEvent) throws IOException{
+        /** @return method that gets the name from the field and returns an error message if it's blank. */
         String name = addName.getText();
         if(name.isBlank()){
             addDialog.setContentText("Please Enter A Name");
             return;
         }
+        /** @return method that gets the address from the field and returns an error message if it's blank. */
         String address = addAddress.getText();
         if(address.isBlank()){
             addDialog.setContentText("Please Enter An Address");
             return;
         }
+        /** @return method that gets the postal code from the field and returns an error message if it's blank. */
         String postal = addPostal.getText();
         if(postal.isBlank()){
             addDialog.setContentText("Please Enter A Postal Code");
             return;
         }
+        /** @return method that gets the phone number from the field and returns an error message if it's blank. */
         String phone = addPhone.getText();
         if(phone.isBlank()){
             addDialog.setContentText("Please Enter A Phone Number");
             return;
         }
+        /** @return method that gets the division from the combo box and returns an error message if it's blank. */
         int division = 0;
 
         Divisions PQ = (Divisions) addDivision.getSelectionModel().getSelectedItem();
@@ -81,6 +88,9 @@ public class AddCustomerController implements Initializable {
         else{
             division = PQ.getDivisionId();
         }
+
+        /** calls the insertCustomer method with provided parameters.
+         * @see java.CustomersDAO */
         CustomersDAO.insertCustomer(name, address, postal, phone, Timestamp.valueOf(LocalDateTime.now(ZoneId.of("GMT"))), division);
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/CustomersPage.fxml"));

@@ -6,6 +6,7 @@ package controller;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import DAO.AppointmentDAO;
@@ -28,6 +29,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
+/** Class that controls the Customers FXML page. */
 public class CustomersPageController implements Initializable {
     public TableView <Customers> customersTable;
     public TableColumn <Customers, Integer> customerId;
@@ -61,6 +63,7 @@ public class CustomersPageController implements Initializable {
          @return predicate interface that uses a lambda to create an object for the alert */
         Predicate<LocalDate> anniversary = (s) -> s.isEqual(LocalDate.now());
 
+        /** @return checks the anniversary object. */
         boolean anniversaryToday = false;
         for(Customers customer : CustomersDAO.getAllCustomers()){
             if(anniversary.test(customer.getCreateDate().toLocalDate())){

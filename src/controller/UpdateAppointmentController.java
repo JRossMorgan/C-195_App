@@ -6,6 +6,7 @@ package controller;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import DAO.AppointmentDAO;
@@ -30,6 +31,7 @@ import java.sql.Timestamp;
 import java.time.*;
 import java.util.ResourceBundle;
 
+/** Class that controls the Update Appointment FXML page. */
 public class UpdateAppointmentController implements Initializable {
     public TextField updateTitle;
     public TextField updateDescription;
@@ -86,6 +88,8 @@ public class UpdateAppointmentController implements Initializable {
      @param actionEvent the event handler that saves changes and navigates back to the appointment page.
     * @throws IOException throws an exception*/
     public void onUpdateSave(ActionEvent actionEvent) throws IOException{
+        /** @return method that gets the Appointment ID from the field and returns an error message if it's blank.
+         * @throws a number format exception. */
         int updatedId = 0;
         try{
             updatedId = Integer.parseInt(updateId.getText());
@@ -95,30 +99,35 @@ public class UpdateAppointmentController implements Initializable {
             return;
         }
 
+        /** @return method that gets the title from the field and returns an error message if it's blank. */
         String title = updateTitle.getText();
         if(title == null){
             updateDialog.setContentText("Please enter a title.");
             return;
         }
 
+        /** @return method that gets the description from the field and returns an error message if it's blank. */
         String description = updateDescription.getText();
         if(description == null){
             updateDialog.setContentText("Please enter a description.");
             return;
         }
 
+        /** @return method that gets the location from the field and returns an error message if it's blank. */
         String location = updateLocation.getText();
         if(location == null){
             updateDialog.setContentText("Please enter a location.");
             return;
         }
 
+        /** @return method that gets the type from the field and returns an error message if it's blank. */
         String type = updateType.getText();
         if(type == null){
             updateDialog.setContentText("Please enter a type.");
             return;
         }
 
+        /** @return method that gets the Customer ID from the combo box and returns an error message if it's blank. */
         int customer = 0;
         Customers CU = updateCustomer.getSelectionModel().getSelectedItem();
         if(CU == null){
@@ -129,6 +138,7 @@ public class UpdateAppointmentController implements Initializable {
             customer = CU.getCustomerId();
         }
 
+        /** @return method that gets the User ID from the combo box and returns an error message if it's blank.*/
         int user = 0;
         Users US = updateUser.getSelectionModel().getSelectedItem();
         if(US == null){
@@ -139,6 +149,7 @@ public class UpdateAppointmentController implements Initializable {
             user = US.getUserId();
         }
 
+        /** @return method that gets the contact name from the combo box and returns an error message if it's blank.*/
         String contact;
         Contacts PQ = (Contacts) updateContact.getSelectionModel().getSelectedItem();
         if(PQ == null){
@@ -149,6 +160,7 @@ public class UpdateAppointmentController implements Initializable {
             contact = PQ.getContactName();
         }
 
+        /** @return gets a contact ID from the contact name. */
         int contactId = 0;
         for(Contacts contacts : ContactsDAO.getAllContacts()){
             if(contacts.getContactName().contentEquals(contact)){
@@ -156,36 +168,44 @@ public class UpdateAppointmentController implements Initializable {
             }
         }
 
+        /** @return sets the date from the date picker. */
         LocalDate date = updateDate.getValue();
         if(date == null){
             updateDialog.setContentText("Please select a date");
             return;
         }
 
+        /** @return sets the start time from the combo box of time values. */
         LocalTime SP = updateStart.getSelectionModel().getSelectedItem();
         if(SP == null){
             updateDialog.setContentText("Please Select an Appointment Start Time");
             return;
         }
 
+        /** @return sets the end time from the combo box of time values. */
         LocalTime EZ = updateEnd.getSelectionModel().getSelectedItem();
         if(EZ == null){
             updateDialog.setContentText("Please Select an Appointment end time");
             return;
         }
 
+        /** assembles a LocalDateTime from the date and time. */
         LocalDateTime appointmentStart = LocalDateTime.of(updateDate.getValue(), SP);
         LocalDateTime appointmentEnd = LocalDateTime.of(updateDate.getValue(), EZ);
 
+        /** @return validates that the start time is before the end time. */
         if(appointmentStart.isAfter(appointmentEnd)){
             updateDialog.setContentText("Appointment start time must be before the end.");
             return;
         }
+
+        /** @return validates that the end time is after the start time. */
         if(appointmentEnd.isBefore(appointmentStart)){
             updateDialog.setContentText("Appointment end time must be after the start.");
             return;
         }
 
+        /** @return checks if the customer has an overlapping appointment. */
         for(Appointment eA : AppointmentDAO.getAppointments()){
             if(updatedId == eA.getAppointmentId()){
                 continue;
@@ -206,6 +226,8 @@ public class UpdateAppointmentController implements Initializable {
                 }
             }
         }
+        /** calls the updateAppointment method with provided parameters.
+         * @see java.AppointmentDAO */
         AppointmentDAO.updateAppointment(updatedId, title, description, location, type, Timestamp.valueOf(appointmentStart), Timestamp.valueOf(appointmentEnd), customer, user, contactId);
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/Appointments.fxml"));

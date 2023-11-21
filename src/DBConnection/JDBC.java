@@ -6,11 +6,13 @@ package DBConnection;
 /**
  *
  * @author Jedediah R Morgan
+ * @version 2
  */
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+/** class that controls the database interaction. */
 public abstract class JDBC {
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
